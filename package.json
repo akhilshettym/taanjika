@@ -1,0 +1,19 @@
+{
+  "name": "taanjika",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=26.0.0 <27"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @taanjika/darshana --filter @taanjika/moola dev",
+    "dev:darshana": "pnpm --filter @taanjika/darshana dev",
+    "dev:moola": "pnpm --filter @taanjika/moola start:dev",
+    "build": "pnpm --filter @taanjika/darshana build && pnpm --filter @taanjika/moola build",
+    "lint": "pnpm --filter @taanjika/darshana lint",
+    "typecheck": "pnpm --filter @taanjika/darshana typecheck && pnpm --filter @taanjika/moola typecheck",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose stop postgres"
+  }
+}
