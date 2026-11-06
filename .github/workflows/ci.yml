@@ -1,0 +1,86 @@
+name: Taanjika CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: taanjika-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # 1. Checkout repository.
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      # 2. Review dependency changes before installing packages.
+      - name: Dependency review
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v5.0.0
+        with:
+          fail-on-severity: high
+
+      # 3. Install pnpm.
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 12.16.1
+
+      # 4. Install Node.js from .nvmrc.
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      # 5. Install exact workspace dependencies.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 6. Verify formatting.
+      - name: Check Prettier formatting
+        run: pnpm format:check
+
+      # 7. Run ESLint.
+      - name: Run ESLint
+        run: pnpm lint
+
+      # 8. TypeScript validation.
+      - name: Run TypeScript checks
+        run: pnpm typecheck
+
+      # 9. Run unit and integration tests.
+      - name: Run tests
+        run: pnpm test
+
+      # 10. Check installed dependency vulnerabilities.
+      - name: Audit dependencies
+        run: pnpm audit --audit-level=high
+
+      # 11. Build both applications.
+      - name: Build Darshana and Moola
+        run: pnpm build

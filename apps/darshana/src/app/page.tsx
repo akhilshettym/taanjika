@@ -2,7 +2,7 @@ export default function HomePage() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-16">
       <section className="w-full max-w-2xl text-center">
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-stone-500">
+        <p className="mb-4 text-xs font-medium tracking-[0.28em] text-stone-500 uppercase">
           Taanjika · Darshana
         </p>
         <h1 className="text-5xl font-semibold tracking-tight text-stone-950 sm:text-6xl">
