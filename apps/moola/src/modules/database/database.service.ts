@@ -1,8 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  OnApplicationShutdown,
-} from "@nestjs/common";
+import { Inject, Injectable, OnApplicationShutdown } from "@nestjs/common";
 import type { Pool } from "pg";
 import { PG_POOL } from "./database.constants";
 

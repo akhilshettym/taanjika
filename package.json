@@ -7,13 +7,20 @@
     "node": ">=26.0.0 <27"
   },
   "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev": "pnpm --parallel --filter @taanjika/darshana --filter @taanjika/moola dev",
     "dev:darshana": "pnpm --filter @taanjika/darshana dev",
-    "dev:moola": "pnpm --filter @taanjika/moola start:dev",
+    "dev:moola": "pnpm --filter @taanjika/moola dev",
     "build": "pnpm --filter @taanjika/darshana build && pnpm --filter @taanjika/moola build",
-    "lint": "pnpm --filter @taanjika/darshana lint",
+    "lint": "pnpm --filter @taanjika/darshana lint && pnpm --filter @taanjika/moola lint",
+    "test": "pnpm --filter @taanjika/darshana --if-present test && pnpm --filter @taanjika/moola --if-present test",
     "typecheck": "pnpm --filter @taanjika/darshana typecheck && pnpm --filter @taanjika/moola typecheck",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose stop postgres"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1"
   }
 }
