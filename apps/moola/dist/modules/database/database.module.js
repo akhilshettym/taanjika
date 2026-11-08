@@ -22,12 +22,16 @@ exports.DatabaseModule = DatabaseModule = __decorate([
             {
                 provide: database_constants_1.PG_POOL,
                 inject: [config_1.ConfigService],
-                useFactory: (config) => new pg_1.Pool({
-                    connectionString: config.getOrThrow("DATABASE_URL"),
-                    max: config.get("DB_POOL_MAX", 10),
-                    connectionTimeoutMillis: 5_000,
-                    idleTimeoutMillis: 30_000,
-                }),
+                useFactory: (config) => {
+                    const max = Number(config.get("DB_POOL_MAX") ?? 10);
+                    return new pg_1.Pool({
+                        connectionString: config.getOrThrow("DATABASE_URL"),
+                        max: Number.isFinite(max) && max > 0 ? max : 10,
+                        connectionTimeoutMillis: 5_000,
+                        idleTimeoutMillis: 30_000,
+                        ssl: config.get("DB_SSL") === "true" ? { rejectUnauthorized: true } : undefined,
+                    });
+                },
             },
             database_service_1.DatabaseService,
         ],

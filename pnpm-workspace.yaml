@@ -1,4 +1,7 @@
 packages:
   - "apps/*"
+
 allowBuilds:
+  "@firebase/util": true
   "@parcel/watcher": false
+  protobufjs: true

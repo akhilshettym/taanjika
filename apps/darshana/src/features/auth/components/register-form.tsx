@@ -1,99 +1,473 @@
+// "use client";
+
+// import Link from "next/link";
+// import { useRouter, useSearchParams } from "next/navigation";
+// import { useEffect, useState } from "react";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { getFirebaseAuth } from "@/lib/firebase/client";
+// import { AuthField } from "./auth-field";
+// import { PasswordInput } from "./password-input";
+// import { PasswordRequirements } from "./password-requirements";
+// import { AccountIntentSelector } from "./account-intent-selector";
+// import { registerSchema, type RegisterFormValues } from "../schemas/auth.schema";
+// import { authApi } from "../services/auth-api.service";
+// import { useAuth } from "../hooks/use-auth";
+// import {
+//   createEmailPasswordAccount,
+//   sendVerificationEmail,
+// } from "../services/firebase-auth.service";
+
+// export function RegisterForm() {
+//   const router = useRouter();
+//   const searchParams = useSearchParams();
+//   const [serverError, setServerError] = useState<string | null>(null);
+//   const [submitting, setSubmitting] = useState(false);
+//   const completingGoogleProfile = searchParams.get("completeProfile") === "1";
+//   const { user: authenticatedUser } = useAuth();
+//   const googleEmail = completingGoogleProfile ? (authenticatedUser?.email ?? "") : "";
+
+//   const {
+//     register,
+//     handleSubmit,
+//     watch,
+//     setValue,
+//     formState: { errors },
+//   } = useForm<RegisterFormValues>({
+//     resolver: zodResolver(registerSchema),
+//     defaultValues: {
+//       firstName: "",
+//       lastName: "",
+//       email: googleEmail,
+//       password: "",
+//       confirmPassword: "",
+//       accountIntent: "COLLECTOR",
+//       acceptedTerms: false,
+//       acceptedPrivacyPolicy: false,
+//       marketingOptIn: false,
+//     },
+//   });
+//   const password = watch("password");
+//   const accountIntent = watch("accountIntent");
+//   useEffect(() => {
+//     if (completingGoogleProfile && authenticatedUser?.email) {
+//       setValue("email", authenticatedUser.email, { shouldValidate: true });
+//     }
+//   }, [completingGoogleProfile, authenticatedUser?.email, setValue]);
+
+//   async function onSubmit(values: RegisterFormValues) {
+//     setSubmitting(true);
+//     setServerError(null);
+//     try {
+//       const email = values.email.trim().toLowerCase();
+//       let user = getFirebaseAuth().currentUser;
+//       if (!user || user.email?.toLowerCase() !== email) {
+//         user = await createEmailPasswordAccount(
+//           email,
+//           values.password,
+//           values.firstName,
+//           values.lastName,
+//         );
+//       } else {
+//         user = await createEmailPasswordAccount(
+//           email,
+//           values.password,
+//           values.firstName,
+//           values.lastName,
+//         );
+//       }
+//       const profileInput = {
+//         firstName: values.firstName.trim(),
+//         lastName: values.lastName.trim(),
+//         accountIntent: values.accountIntent,
+//         acceptedTerms: true as const,
+//         acceptedPrivacyPolicy: true as const,
+//         marketingOptIn: values.marketingOptIn,
+//       };
+//       try {
+//         await authApi.registerProfile(user, profileInput);
+//       } catch {
+//         await authApi.syncProfile(user, profileInput);
+//       }
+
+//       if (!user.emailVerified) {
+//         await sendVerificationEmail(user);
+//         router.push("/verify-email");
+//       } else if (values.accountIntent === "ARTIST") {
+//         router.push("/artist/application-status");
+//       } else {
+//         router.push("/");
+//       }
+//     } catch (error) {
+//       setServerError(
+//         error instanceof Error
+//           ? error.message
+//           : "We couldn't complete registration. Please try again.",
+//       );
+//     } finally {
+//       setSubmitting(false);
+//     }
+//   }
+
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+//       {completingGoogleProfile ? (
+//         <p className="rounded-lg bg-blue-50 p-3 text-sm text-blue-800">
+//           Complete your Taanjika profile to finish setting up your Google account.
+//         </p>
+//       ) : null}
+//       <div className="grid gap-5 sm:grid-cols-2">
+//         <AuthField
+//           id="firstName"
+//           label="First name"
+//           placeholder="First name"
+//           autoComplete="given-name"
+//           error={errors.firstName?.message}
+//           {...register("firstName")}
+//         />
+//         <AuthField
+//           id="lastName"
+//           label="Last name"
+//           placeholder="Last name"
+//           autoComplete="family-name"
+//           error={errors.lastName?.message}
+//           {...register("lastName")}
+//         />
+//       </div>
+//       <AuthField
+//         id="email"
+//         label="Email address"
+//         type="email"
+//         placeholder="you@example.com"
+//         autoComplete="email"
+//         readOnly={completingGoogleProfile}
+//         error={errors.email?.message}
+//         {...register("email")}
+//       />
+//       <div className="space-y-3">
+//         <PasswordInput
+//           id="password"
+//           label="Password"
+//           autoComplete="new-password"
+//           placeholder="Create a password"
+//           error={errors.password?.message}
+//           {...register("password")}
+//         />
+//         <PasswordRequirements value={password ?? ""} />
+//       </div>
+//       <PasswordInput
+//         id="confirmPassword"
+//         label="Re-enter password"
+//         autoComplete="new-password"
+//         placeholder="Re-enter your password"
+//         error={errors.confirmPassword?.message}
+//         {...register("confirmPassword")}
+//       />
+//       <AccountIntentSelector
+//         value={accountIntent}
+//         onChange={(value) => setValue("accountIntent", value, { shouldValidate: true })}
+//         error={errors.accountIntent?.message}
+//       />
+//       <div className="space-y-3">
+//         <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+//           <input type="checkbox" className="mt-1 accent-stone-900" {...register("acceptedTerms")} />
+//           <span>
+//             I accept the{" "}
+//             <Link className="font-semibold underline" href="/terms">
+//               Terms and Conditions
+//             </Link>
+//             .
+//             {errors.acceptedTerms?.message ? (
+//               <span className="block text-red-600">{errors.acceptedTerms.message}</span>
+//             ) : null}
+//           </span>
+//         </label>
+//         <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+//           <input
+//             type="checkbox"
+//             className="mt-1 accent-stone-900"
+//             {...register("acceptedPrivacyPolicy")}
+//           />
+//           <span>
+//             I acknowledge the{" "}
+//             <Link className="font-semibold underline" href="/privacy">
+//               Privacy Policy
+//             </Link>
+//             .
+//             {errors.acceptedPrivacyPolicy?.message ? (
+//               <span className="block text-red-600">{errors.acceptedPrivacyPolicy.message}</span>
+//             ) : null}
+//           </span>
+//         </label>
+//         <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+//           <input
+//             type="checkbox"
+//             className="mt-1 accent-stone-900"
+//             {...register("marketingOptIn")}
+//           />
+//           <span>I would like to receive occasional product and art updates. (Optional)</span>
+//         </label>
+//       </div>
+//       {serverError ? (
+//         <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+//           {serverError}
+//         </p>
+//       ) : null}
+//       <button
+//         type="submit"
+//         disabled={submitting}
+//         className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-60"
+//       >
+//         {submitting
+//           ? "Creating account..."
+//           : completingGoogleProfile
+//             ? "Complete account"
+//             : "Create account"}
+//       </button>
+//       <p className="text-center text-sm text-stone-500">
+//         Already have an account?{" "}
+//         <Link href="/sign-in" className="font-semibold text-stone-900 hover:underline">
+//           Sign in
+//         </Link>
+//       </p>
+//     </form>
+//   );
+// }
+
 "use client";
 
-import { useState } from "react";
-import type { FormEvent } from "react";
 import Link from "next/link";
-
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getFirebaseAuth } from "@/lib/firebase/client";
 import { AuthField } from "./auth-field";
-import { GoogleAuthButton } from "./google-auth-button";
+import { PasswordInput } from "./password-input";
+import { PasswordRequirements } from "./password-requirements";
+import { AccountIntentSelector } from "./account-intent-selector";
+import { registerSchema, type RegisterFormValues } from "../schemas/auth.schema";
+import { authApi } from "../services/auth-api.service";
+import { useAuth } from "../hooks/use-auth";
+import {
+  createEmailPasswordAccount,
+  sendVerificationEmail,
+} from "../services/firebase-auth.service";
 
 export function RegisterForm() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | undefined>();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const completingGoogleProfile = searchParams.get("completeProfile") === "1";
+  const { user: authenticatedUser } = useAuth();
+  const googleEmail = completingGoogleProfile ? (authenticatedUser?.email ?? "") : "";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: googleEmail,
+      password: "",
+      confirmPassword: "",
+      accountIntent: "COLLECTOR",
+      acceptedTerms: false,
+      acceptedPrivacyPolicy: false,
+      marketingOptIn: false,
+    },
+  });
 
-    setError(undefined);
+  const password = useWatch({ control, name: "password" });
+  const accountIntent = useWatch({ control, name: "accountIntent" });
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
+  useEffect(() => {
+    if (completingGoogleProfile && authenticatedUser?.email) {
+      setValue("email", authenticatedUser.email, { shouldValidate: true });
+    }
+  }, [completingGoogleProfile, authenticatedUser?.email, setValue]);
+
+  async function onSubmit(values: RegisterFormValues) {
+    setSubmitting(true);
+    setServerError(null);
+    try {
+      const email = values.email.trim().toLowerCase();
+      let user = getFirebaseAuth().currentUser;
+      if (!user || user.email?.toLowerCase() !== email) {
+        user = await createEmailPasswordAccount(
+          email,
+          values.password,
+          values.firstName,
+          values.lastName,
+        );
+      } else {
+        user = await createEmailPasswordAccount(
+          email,
+          values.password,
+          values.firstName,
+          values.lastName,
+        );
+      }
+      const profileInput = {
+        firstName: values.firstName.trim(),
+        lastName: values.lastName.trim(),
+        accountIntent: values.accountIntent,
+        acceptedTerms: true as const,
+        acceptedPrivacyPolicy: true as const,
+        marketingOptIn: values.marketingOptIn,
+      };
+      try {
+        await authApi.registerProfile(user, profileInput);
+      } catch {
+        await authApi.syncProfile(user, profileInput);
+      }
+
+      if (!user.emailVerified) {
+        await sendVerificationEmail(user);
+        router.push("/verify-email");
+      } else if (values.accountIntent === "ARTIST") {
+        router.push("/artist/application-status");
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      setServerError(
+        error instanceof Error
+          ? error.message
+          : "We couldn't complete registration. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
     }
   }
 
   return (
-    <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+      {completingGoogleProfile ? (
+        <p className="rounded-lg bg-blue-50 p-3 text-sm text-blue-800">
+          Complete your Taanjika profile to finish setting up your Google account.
+        </p>
+      ) : null}
+      <div className="grid gap-5 sm:grid-cols-2">
         <AuthField
-          id="fullName"
-          name="fullName"
-          label="Full name"
-          type="text"
-          placeholder="Enter your full name"
-          autoComplete="name"
-          required
+          id="firstName"
+          label="First name"
+          placeholder="First name"
+          autoComplete="given-name"
+          error={errors.firstName?.message}
+          {...register("firstName")}
         />
-
         <AuthField
-          id="email"
-          name="email"
-          label="Email address"
-          type="email"
-          placeholder="Enter your email"
-          autoComplete="email"
-          required
+          id="lastName"
+          label="Last name"
+          placeholder="Last name"
+          autoComplete="family-name"
+          error={errors.lastName?.message}
+          {...register("lastName")}
         />
-
-        <AuthField
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="Create a password"
-          autoComplete="new-password"
-          minLength={8}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-
-        <AuthField
-          id="confirmPassword"
-          name="confirmPassword"
-          label="Confirm password"
-          type="password"
-          placeholder="Re-enter your password"
-          autoComplete="new-password"
-          value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-          error={error}
-          required
-        />
-
-        <button
-          type="submit"
-          className="w-full rounded-xl bg-stone-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-stone-700"
-        >
-          Create account
-        </button>
-      </form>
-
-      <div className="relative flex items-center">
-        <div className="grow border-t border-stone-200" />
-        <span className="px-4 text-xs text-stone-400">OR</span>
-        <div className="grow border-t border-stone-200" />
       </div>
-
-      <GoogleAuthButton />
-
+      <AuthField
+        id="email"
+        label="Email address"
+        type="email"
+        placeholder="you@example.com"
+        autoComplete="email"
+        readOnly={completingGoogleProfile}
+        error={errors.email?.message}
+        {...register("email")}
+      />
+      <div className="space-y-3">
+        <PasswordInput
+          id="password"
+          label="Password"
+          autoComplete="new-password"
+          placeholder="Create a password"
+          error={errors.password?.message}
+          {...register("password")}
+        />
+        <PasswordRequirements value={password ?? ""} />
+      </div>
+      <PasswordInput
+        id="confirmPassword"
+        label="Re-enter password"
+        autoComplete="new-password"
+        placeholder="Re-enter your password"
+        error={errors.confirmPassword?.message}
+        {...register("confirmPassword")}
+      />
+      <AccountIntentSelector
+        value={accountIntent}
+        onChange={(value) => setValue("accountIntent", value, { shouldValidate: true })}
+        error={errors.accountIntent?.message}
+      />
+      <div className="space-y-3">
+        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+          <input type="checkbox" className="mt-1 accent-stone-900" {...register("acceptedTerms")} />
+          <span>
+            I accept the{" "}
+            <Link className="font-semibold underline" href="/terms">
+              Terms and Conditions
+            </Link>
+            .
+            {errors.acceptedTerms?.message ? (
+              <span className="block text-red-600">{errors.acceptedTerms.message}</span>
+            ) : null}
+          </span>
+        </label>
+        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+          <input
+            type="checkbox"
+            className="mt-1 accent-stone-900"
+            {...register("acceptedPrivacyPolicy")}
+          />
+          <span>
+            I acknowledge the{" "}
+            <Link className="font-semibold underline" href="/privacy">
+              Privacy Policy
+            </Link>
+            .
+            {errors.acceptedPrivacyPolicy?.message ? (
+              <span className="block text-red-600">{errors.acceptedPrivacyPolicy.message}</span>
+            ) : null}
+          </span>
+        </label>
+        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+          <input
+            type="checkbox"
+            className="mt-1 accent-stone-900"
+            {...register("marketingOptIn")}
+          />
+          <span>I would like to receive occasional product and art updates. (Optional)</span>
+        </label>
+      </div>
+      {serverError ? (
+        <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+          {serverError}
+        </p>
+      ) : null}
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {submitting
+          ? "Creating account..."
+          : completingGoogleProfile
+            ? "Complete account"
+            : "Create account"}
+      </button>
       <p className="text-center text-sm text-stone-500">
         Already have an account?{" "}
         <Link href="/sign-in" className="font-semibold text-stone-900 hover:underline">
           Sign in
         </Link>
       </p>
-    </div>
+    </form>
   );
 }

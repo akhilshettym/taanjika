@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-
+import { Suspense } from "react";
 import { AuthCard } from "@/features/auth/components/auth-card";
 import { RegisterForm } from "@/features/auth/components/register-form";
 
 export const metadata: Metadata = {
-  title: "Create account | Taanjika",
-  description: "Create your Taanjika account and discover art.",
+  title: "Create account",
+  description: "Create your Taanjika account.",
 };
-
 export default function RegisterPage() {
   return (
     <AuthCard
@@ -15,7 +14,9 @@ export default function RegisterPage() {
       title="Create your account"
       description="Become part of a community celebrating art, culture and craftsmanship."
     >
-      <RegisterForm />
+      <Suspense fallback={<p className="text-sm text-stone-500">Loading registration form...</p>}>
+        <RegisterForm />
+      </Suspense>
     </AuthCard>
   );
 }
