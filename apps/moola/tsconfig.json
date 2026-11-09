@@ -1,28 +1,40 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    "target": "ES2022",
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+
     "declaration": true,
     "removeComments": true,
+    "sourceMap": true,
+    "noEmitOnError": true,
+
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2022",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
+
+    "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,
+    "noImplicitOverride": true,
+
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "strict": true,
-    "noImplicitOverride": true
+
+    "skipLibCheck": true,
+    "incremental": true,
+
+    "types": ["node"]
   },
+
   "include": ["src/**/*.ts"],
+
   "exclude": ["node_modules", "dist", "test"]
 }

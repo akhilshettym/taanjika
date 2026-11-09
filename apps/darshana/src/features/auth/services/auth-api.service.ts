@@ -1,10 +1,6 @@
-
 import type { User } from "firebase/auth";
 
-import type {
-  AuthProfile,
-  RegisterProfileInput,
-} from "../types/auth.types";
+import type { AuthProfile, RegisterProfileInput } from "../types/auth.types";
 
 /**
  * Reads the Moola API URL only when an API request is made.
@@ -26,15 +22,11 @@ function getApiBaseUrl(): string {
   try {
     parsedUrl = new URL(apiUrl);
   } catch {
-    throw new Error(
-      "NEXT_PUBLIC_MOOLA_API_URL must be a valid absolute URL.",
-    );
+    throw new Error("NEXT_PUBLIC_MOOLA_API_URL must be a valid absolute URL.");
   }
 
   if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
-    throw new Error(
-      "NEXT_PUBLIC_MOOLA_API_URL must use HTTP or HTTPS.",
-    );
+    throw new Error("NEXT_PUBLIC_MOOLA_API_URL must use HTTP or HTTPS.");
   }
 
   return apiUrl.replace(/\/+$/, "");
@@ -74,9 +66,7 @@ function getErrorMessage(payload: unknown): {
 
   const error = payload as ApiErrorPayload;
 
-  const message = Array.isArray(error.message)
-    ? error.message.join(", ")
-    : error.message;
+  const message = Array.isArray(error.message) ? error.message.join(", ") : error.message;
 
   return {
     message,
@@ -90,11 +80,7 @@ function getErrorMessage(payload: unknown): {
  * Firebase automatically refreshes the ID token when necessary.
  * The actual token is never stored manually by this service.
  */
-async function request<T>(
-  user: User,
-  path: string,
-  init: RequestInit = {},
-): Promise<T> {
+async function request<T>(user: User, path: string, init: RequestInit = {}): Promise<T> {
   const apiBaseUrl = getApiBaseUrl();
 
   // Obtain a valid Firebase ID token.
@@ -132,10 +118,7 @@ async function request<T>(
   // Handle empty responses safely.
   if (response.status === 204) {
     if (!response.ok) {
-      throw new AuthApiError(
-        "The request could not be completed.",
-        response.status,
-      );
+      throw new AuthApiError("The request could not be completed.", response.status);
     }
 
     return undefined as T;
@@ -159,8 +142,7 @@ async function request<T>(
     const errorDetails = getErrorMessage(payload);
 
     throw new AuthApiError(
-      errorDetails.message ??
-        "The request could not be completed. Please try again.",
+      errorDetails.message ?? "The request could not be completed. Please try again.",
       response.status,
       errorDetails.code,
     );
@@ -176,10 +158,7 @@ export const authApi = {
   /**
    * Registers a new user profile in Moola.
    */
-  registerProfile(
-    user: User,
-    input: RegisterProfileInput,
-  ): Promise<AuthProfile> {
+  registerProfile(user: User, input: RegisterProfileInput): Promise<AuthProfile> {
     return request<AuthProfile>(user, "/auth/register", {
       method: "POST",
       body: JSON.stringify(input),
@@ -191,10 +170,7 @@ export const authApi = {
    * Useful when Firebase account creation succeeds but
    * PostgreSQL profile creation previously failed.
    */
-  syncProfile(
-    user: User,
-    input: RegisterProfileInput,
-  ): Promise<AuthProfile> {
+  syncProfile(user: User, input: RegisterProfileInput): Promise<AuthProfile> {
     return request<AuthProfile>(user, "/auth/sync", {
       method: "POST",
       body: JSON.stringify(input),
