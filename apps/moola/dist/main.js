@@ -16,14 +16,12 @@ async function bootstrap() {
             .split(",")
             .map((origin) => origin.trim())
             .filter(Boolean),
+        methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
     });
     app.use((0, helmet_1.default)());
-    app.useGlobalPipes(new common_1.ValidationPipe({
-        whitelist: true,
-        forbidNonWhitelisted: true,
-        transform: true,
-    }));
+    app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
     app.enableShutdownHooks();
     const port = Number(process.env.PORT ?? 4000);
     await app.listen(port, "0.0.0.0");

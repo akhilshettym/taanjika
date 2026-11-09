@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-
 import { AuthCard } from "@/features/auth/components/auth-card";
-import { SignInForm } from "@/features/auth/components/sign-in-form";
+import { VerifyEmailContent } from "@/features/auth/components/verify-email-content";
 
 export const metadata: Metadata = {
-  title: "Sign in | Taanjika",
-  description: "Sign in to your Taanjika account.",
+  title: "Verify email",
+  description: "Verify your Taanjika email address.",
 };
-
-export default function SignInPage() {
+export default function VerifyEmailPage() {
   return (
     <AuthCard
-      eyebrow="Welcome back"
-      title="Sign in to Taanjika"
-      description="Continue your journey into art, culture and creativity."
+      eyebrow="One last step"
+      title="Verify your email"
+      description="Verify your email address before continuing to Taanjika."
     >
-      <SignInForm />
+      <VerifyEmailContent />
     </AuthCard>
   );
 }

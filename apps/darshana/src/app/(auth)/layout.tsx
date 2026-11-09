@@ -1,9 +1,4 @@
 import type { ReactNode } from "react";
-
-interface AuthLayoutProps {
-  children: ReactNode;
-}
-
-export default function AuthLayout({ children }: AuthLayoutProps) {
-  return <main className="min-h-screen bg-stone-50">{children}</main>;
+export default function AuthLayout({ children }: { children: ReactNode }) {
+  return <div className="min-h-screen bg-stone-50">{children}</div>;
 }

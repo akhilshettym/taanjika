@@ -3,6 +3,7 @@ name: Taanjika CI
 on:
   push:
     branches:
+      - master
       - main
 
   pull_request:
@@ -42,6 +43,7 @@ jobs:
         uses: actions/dependency-review-action@v5.0.0
         with:
           fail-on-severity: high
+          show-openssf-scorecard: false
 
       # 3. Install pnpm.
       - name: Install pnpm
@@ -81,6 +83,12 @@ jobs:
       - name: Audit dependencies
         run: pnpm audit --audit-level=high
 
-      # 11. Build both applications.
-      - name: Build Darshana and Moola
-        run: pnpm build
+      # 11. Build Darshana.
+      - name: Build Darshana
+        env:
+          NEXT_PUBLIC_MOOLA_API_URL: ${{ vars.NEXT_PUBLIC_MOOLA_API_URL || 'http://127.0.0.1:4000/api/v1' }}
+        run: pnpm --filter @taanjika/darshana build
+
+      # 12. Build Moola.
+      - name: Build Moola
+        run: pnpm --filter @taanjika/moola build

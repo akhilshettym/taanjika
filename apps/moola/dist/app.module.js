@@ -10,6 +10,10 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const database_module_1 = require("./modules/database/database.module");
+const firebase_module_1 = require("./modules/firebase/firebase.module");
+const auth_module_1 = require("./modules/auth/auth.module");
+const users_module_1 = require("./modules/users/users.module");
+const admin_bootstrap_module_1 = require("./modules/admin-bootstrap/admin-bootstrap.module");
 const health_module_1 = require("./modules/health/health.module");
 let AppModule = class AppModule {
 };
@@ -23,6 +27,10 @@ exports.AppModule = AppModule = __decorate([
                 ignoreEnvFile: process.env.NODE_ENV === "production",
             }),
             database_module_1.DatabaseModule,
+            firebase_module_1.FirebaseModule,
+            users_module_1.UsersModule,
+            auth_module_1.AuthModule,
+            admin_bootstrap_module_1.AdminBootstrapModule,
             health_module_1.HealthModule,
         ],
     })

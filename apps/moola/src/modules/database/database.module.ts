@@ -10,13 +10,16 @@ import { DatabaseService } from "./database.service";
     {
       provide: PG_POOL,
       inject: [ConfigService],
-      useFactory: (config: ConfigService): Pool =>
-        new Pool({
+      useFactory: (config: ConfigService): Pool => {
+        const max = Number(config.get<string>("DB_POOL_MAX") ?? 10);
+        return new Pool({
           connectionString: config.getOrThrow<string>("DATABASE_URL"),
-          max: config.get<number>("DB_POOL_MAX", 10),
+          max: Number.isFinite(max) && max > 0 ? max : 10,
           connectionTimeoutMillis: 5_000,
           idleTimeoutMillis: 30_000,
-        }),
+          ssl: config.get<string>("DB_SSL") === "true" ? { rejectUnauthorized: true } : undefined,
+        });
+      },
     },
     DatabaseService,
   ],

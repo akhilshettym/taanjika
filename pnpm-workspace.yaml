@@ -1,4 +1,17 @@
 packages:
   - "apps/*"
+
 allowBuilds:
+  "@firebase/util": true
   "@parcel/watcher": false
+  protobufjs: true
+
+overrides:
+  # Previous security fix — keep this.
+  "@grpc/grpc-js": "1.14.7"
+
+  # Fix glob vulnerability.
+  "glob@>=9.0.0 <=14.0.1": "14.0.4"
+
+  # Fix minimatch vulnerability.
+  "minimatch@>=7.0.0 <11.0.1": "11.0.5"
