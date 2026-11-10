@@ -9,6 +9,7 @@ interface PasswordInputProps extends Omit<ComponentPropsWithRef<"input">, "type"
 
 export function PasswordInput({ id, label, error, className, ...props }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
+
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="block text-sm font-medium text-stone-700">

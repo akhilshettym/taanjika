@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { AuthCard } from "@/features/auth/components/auth-card";
 import { ForgotPasswordForm } from "@/features/auth/components/forgot-password-form";
 
@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Reset password",
   description: "Reset your Taanjika password.",
 };
+
 export default function ForgotPasswordPage() {
   return (
     <AuthCard

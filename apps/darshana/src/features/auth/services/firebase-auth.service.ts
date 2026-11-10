@@ -39,7 +39,6 @@ export async function createEmailPasswordAccount(
   const existing = getFirebaseAuth().currentUser;
   let user: User;
 
-  // A Google-first user can add an email/password credential while completing Taanjika onboarding.
   if (
     existing?.email?.toLowerCase() === normalizedEmail &&
     existing.providerData.some((provider) => provider.providerId === "google.com") &&

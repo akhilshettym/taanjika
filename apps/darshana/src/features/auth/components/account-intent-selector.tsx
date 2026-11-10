@@ -20,6 +20,7 @@ export function AccountIntentSelector({ value, onChange, error }: Props) {
       description: "Apply to showcase and sell your artwork on Taanjika.",
     },
   ];
+
   return (
     <fieldset className="space-y-2">
       <legend className="text-sm font-medium text-stone-700">
