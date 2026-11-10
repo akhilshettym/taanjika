@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { AuthCard } from "@/features/auth/components/auth-card";
 import { RegisterForm } from "@/features/auth/components/register-form";
 
@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Create account",
   description: "Create your Taanjika account.",
 };
+
 export default function RegisterPage() {
   return (
     <AuthCard

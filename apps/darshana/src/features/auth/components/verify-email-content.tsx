@@ -13,6 +13,7 @@ export function VerifyEmailContent() {
   const { user, isLoading } = useAuth();
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
   useEffect(() => {
     if (!isLoading && !user) router.replace("/sign-in");
   }, [isLoading, user, router]);

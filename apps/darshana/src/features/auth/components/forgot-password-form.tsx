@@ -18,6 +18,7 @@ export function ForgotPasswordForm() {
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: { email: "" },
   });
+
   async function onSubmit(values: ForgotPasswordValues) {
     setLoading(true);
     setMessage(null);
@@ -29,6 +30,7 @@ export function ForgotPasswordForm() {
     setMessage("If an account exists for that email, a password-reset link will be sent.");
     setLoading(false);
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       <AuthField

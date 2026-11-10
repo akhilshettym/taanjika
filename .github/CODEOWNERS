@@ -1,0 +1,22 @@
+# DEFAULT REPOSITORY OWNER
+* @akhilshettym
+
+# APPLICATION OWNERSHIP
+/apps/darshana/ @akhilshettym
+/apps/moola/ @akhilshettym
+
+# SHARED PACKAGES
+/packages/ @akhilshettym
+
+# INFRASTRUCTURE AND DEPLOYMENT
+/docker-compose.yml @akhilshettym
+/Dockerfile @akhilshettym
+/.dockerignore @akhilshettym
+
+# GITHUB CONFIGURATION
+/.github/ @akhilshettym
+
+# ROOT CONFIGURATION
+/package.json @akhilshettym
+/pnpm-lock.yaml @akhilshettym
+/pnpm-workspace.yaml @akhilshettym

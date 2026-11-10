@@ -6,6 +6,7 @@ interface Props {
   busy?: boolean;
   message?: string | null;
 }
+
 export function EmailVerificationNotice({ email, onResend, busy = false, message }: Props) {
   return (
     <div className="space-y-4 rounded-2xl border border-stone-200 bg-white p-6">
