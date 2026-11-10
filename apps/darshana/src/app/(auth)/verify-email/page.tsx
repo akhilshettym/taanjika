@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Verify email",
   description: "Verify your Taanjika email address.",
 };
+
 export default function VerifyEmailPage() {
   return (
     <AuthCard

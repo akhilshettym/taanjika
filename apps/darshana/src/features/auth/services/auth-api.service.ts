@@ -1,13 +1,6 @@
 import type { User } from "firebase/auth";
-
 import type { AuthProfile, RegisterProfileInput } from "../types/auth.types";
 
-/**
- * Reads the Moola API URL only when an API request is made.
- *
- * This prevents environment configuration errors during
- * Next.js module imports and static page prerendering.
- */
 function getApiBaseUrl(): string {
   const apiUrl = process.env.NEXT_PUBLIC_MOOLA_API_URL?.trim();
 
@@ -32,9 +25,6 @@ function getApiBaseUrl(): string {
   return apiUrl.replace(/\/+$/, "");
 }
 
-/**
- * Standard API error class.
- */
 export class AuthApiError extends Error {
   constructor(
     message: string,
@@ -53,9 +43,6 @@ interface ApiErrorPayload {
   code?: string;
 }
 
-/**
- * Extracts a readable message from the Moola API response.
- */
 function getErrorMessage(payload: unknown): {
   message?: string;
   code?: string;
@@ -74,22 +61,10 @@ function getErrorMessage(payload: unknown): {
   };
 }
 
-/**
- * Common authenticated API request.
- *
- * Firebase automatically refreshes the ID token when necessary.
- * The actual token is never stored manually by this service.
- */
 async function request<T>(user: User, path: string, init: RequestInit = {}): Promise<T> {
   const apiBaseUrl = getApiBaseUrl();
-
-  // Obtain a valid Firebase ID token.
   const token = await user.getIdToken();
-
-  // Normalize the API path.
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  // Build headers safely, supporting Headers, tuples and plain objects.
   const headers = new Headers(init.headers);
 
   headers.set("Accept", "application/json");
@@ -115,7 +90,6 @@ async function request<T>(user: User, path: string, init: RequestInit = {}): Pro
     );
   }
 
-  // Handle empty responses safely.
   if (response.status === 204) {
     if (!response.ok) {
       throw new AuthApiError("The request could not be completed.", response.status);
@@ -124,7 +98,6 @@ async function request<T>(user: User, path: string, init: RequestInit = {}): Pro
     return undefined as T;
   }
 
-  // Read the response body once.
   const responseText = await response.text();
 
   let payload: unknown = null;
@@ -137,7 +110,6 @@ async function request<T>(user: User, path: string, init: RequestInit = {}): Pro
     }
   }
 
-  // Handle unsuccessful API responses.
   if (!response.ok) {
     const errorDetails = getErrorMessage(payload);
 
@@ -151,13 +123,7 @@ async function request<T>(user: User, path: string, init: RequestInit = {}): Pro
   return payload as T;
 }
 
-/**
- * Authentication API methods.
- */
 export const authApi = {
-  /**
-   * Registers a new user profile in Moola.
-   */
   registerProfile(user: User, input: RegisterProfileInput): Promise<AuthProfile> {
     return request<AuthProfile>(user, "/auth/register", {
       method: "POST",
@@ -165,11 +131,6 @@ export const authApi = {
     });
   },
 
-  /**
-   * Synchronizes an existing Firebase user with Moola.
-   * Useful when Firebase account creation succeeds but
-   * PostgreSQL profile creation previously failed.
-   */
   syncProfile(user: User, input: RegisterProfileInput): Promise<AuthProfile> {
     return request<AuthProfile>(user, "/auth/sync", {
       method: "POST",
@@ -177,9 +138,6 @@ export const authApi = {
     });
   },
 
-  /**
-   * Fetches the currently authenticated user's profile.
-   */
   getMe(user: User): Promise<AuthProfile> {
     return request<AuthProfile>(user, "/auth/me", {
       method: "GET",

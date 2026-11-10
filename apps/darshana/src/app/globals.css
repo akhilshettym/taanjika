@@ -6,38 +6,38 @@
   color-scheme: light;
 
   /* brand colors */
-  --brand-primary: #741F2B;
-  --brand-secondary: #54232A;
-  --brand-accent-primary: #C68B55;
-  --brand-accent-secondary: #C6A56B;
+  --brand-primary: #741f2b;
+  --brand-secondary: #54232a;
+  --brand-accent-primary: #c68b55;
+  --brand-accent-secondary: #c6a56b;
 
   /* background colors */
-  --bg-background: #FBF5EA;
-  --bg-surface-primary: #FFFCF7;
-  --bg-surface-secondary: #F2E5D4;
-  --bg-surface-muted: #E7D2B9;
+  --bg-background: #fbf5ea;
+  --bg-surface-primary: #fffcf7;
+  --bg-surface-secondary: #f2e5d4;
+  --bg-surface-muted: #e7d2b9;
 
   /* typography colors */
-  --typo-primary: #211A17;
-  --typo-secondary: #30251F;
-  --typo-tertiary: #49413B;
-  --typo-muted: #82766A;
+  --typo-primary: #211a17;
+  --typo-secondary: #30251f;
+  --typo-tertiary: #49413b;
+  --typo-muted: #82766a;
 
   /* border colors */
-  --border-primary: #D8C5AF;
-  --border-secondary: #E5D8C7;
+  --border-primary: #d8c5af;
+  --border-secondary: #e5d8c7;
 
   /* status colors */
   --status-success: #426746;
-  --status-warning: #94651B;
-  --status-error: #B42332;
-  --status-info: #315F7D;
+  --status-warning: #94651b;
+  --status-error: #b42332;
+  --status-info: #315f7d;
 
   /* supporting colors */
-  --color-white: #FFFFFF;
-  --color-disabled: #D9D0C5;
+  --color-white: #ffffff;
+  --color-disabled: #d9d0c5;
   --color-overlay: rgb(33 26 23 / 45%);
-  --color-focus-ring: #A45D55;
+  --color-focus-ring: #a45d55;
 
   /*  layout */
   --container-max-width: 1440px;
@@ -54,8 +54,8 @@
   --shadow-medium: 0 8px 24px rgb(33 26 23 / 8%);
   --shadow-elevated: 0 16px 40px rgb(33 26 23 / 12%);
 
-  --support-white: #FFFFFF;
-  --support-disabled: #D9D0C5;
+  --support-white: #ffffff;
+  --support-disabled: #d9d0c5;
 
   --elevation-soft: 0 2px 12px rgb(33 26 23 / 5%);
   --elevation-medium: 0 8px 24px rgb(33 26 23 / 8%);
@@ -65,13 +65,11 @@
   --radius-medium: 8px;
   --radius-large: 12px;
   --radius-extra-large: 16px;
-
 }
 
 /* Tailind theme mapping */
 
 @theme inline {
-
   /* Brand */
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);

@@ -1,6 +1,7 @@
 ## TAANJIKA Initiator Guide
 
 ### 1. Root Directory Setup
+
 Ensure you are operating from the project root directory before executing setup scripts.
 
 ```Bash
@@ -12,6 +13,7 @@ pwd
 ```
 
 ### 2. Verify Prerequisites
+
 Validate tool versions and run auto-install/switch fallbacks where applicable.
 
 ```Bash
@@ -27,6 +29,7 @@ docker compose version
 ```
 
 ### 3. Environment Variable Configuration
+
 Copy the configuration template to generate your local .env file.
 
 ```Bash
@@ -39,6 +42,7 @@ cp .env.example .env
 ```
 
 ### 4. Dependency Installation
+
 Install dependencies across all monorepo packages (Darshana frontend, Moola backend, and root).
 
 ```Bash
@@ -46,6 +50,7 @@ pnpm install
 ```
 
 ### 5. PostgreSQL Database Lifecycle & Migration
+
 Start PostgreSQL Container:
 
 ```Bash
@@ -76,6 +81,7 @@ pnpm db:down
 ```
 
 ### 6. Launch Local Development Servers
+
 Run the frontend and backend applications in dedicated terminal sessions.
 
 Terminal 1 — Frontend (Darshana / Next.js):
@@ -92,9 +98,8 @@ pnpm dev:moola
 # Alternative: pnpm --filter moola dev
 ```
 
-
-
 ### 7. Pre-Commit Quality Checks
+
 Execute all linters, type checks, tests, security audits, and builds before staging commits.
 
 ```Bash
