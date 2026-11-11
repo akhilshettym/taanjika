@@ -17,20 +17,30 @@ export function SearchBar() {
   };
 
   return (
-    <form role="search"
+    <form
+      role="search"
       onSubmit={handleSearch}
-      className="group relative flex h-10 w-full items-center rounded-full border border-brand-primary/40 bg-surface-muted px-1 transition-all duration-200 focus-within:border-brand-primary focus-within:ring-1 focus-within:ring-brand-primary hover:border-brand-primary">
+      className="group border-brand-primary/40 bg-surface-muted focus-within:border-brand-primary focus-within:ring-brand-primary hover:border-brand-primary relative flex h-10 w-full items-center rounded-full border px-1 transition-all duration-200 focus-within:ring-1"
+    >
       <label htmlFor="header-search" className="sr-only">
         Search products
       </label>
 
-      <input id="header-search" type="search" value={query}
+      <input
+        id="header-search"
+        type="search"
+        value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder="Search paintings, art forms, artists..."
-        className="w-full bg-transparent pr-2 pl-6 text-xs sm:text-xs text-brand-primary outline-none placeholder:text-brand-primary/60" autoComplete="off" />
+        className="text-brand-primary placeholder:text-brand-primary/60 w-full bg-transparent pr-2 pl-6 text-xs outline-none sm:text-xs"
+        autoComplete="off"
+      />
 
-      <button type="submit" aria-label="Submit search"
-        className="flex h-8 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary text-surface-muted transition-transform hover:scale-105 active:scale-95 focus-visible:outline-none">
+      <button
+        type="submit"
+        aria-label="Submit search"
+        className="bg-brand-primary text-surface-muted flex h-8 w-10 shrink-0 items-center justify-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none active:scale-95"
+      >
         <Search size={16} strokeWidth={2.5} aria-hidden="true" />
       </button>
     </form>

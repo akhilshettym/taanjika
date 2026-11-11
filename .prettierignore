@@ -1,20 +1,31 @@
+# Dependencies
 node_modules/
+ 
+# Next.js
 .next/
+out/
+ 
+# Build output
 dist/
 build/
 coverage/
-out/
-.next/
+ 
+# Caches
 .turbo/
+.cache/
+ 
+# Generated TypeScript
+*.tsbuildinfo
+ 
 .pnpm-store/
-
+ 
 pnpm-lock.yaml
-
+ 
 # Generated files
 next-env.d.ts
 *.generated.ts
 *.generated.tsx
-
+ 
 # Environment files
 .env
 .env.*

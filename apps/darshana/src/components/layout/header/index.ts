@@ -7,7 +7,4 @@ export { HeaderPromotion } from "./HeaderPromotion";
 
 export { navigationConfig } from "./config/navigation.config";
 
-export type {
-    NavigationItem,
-    NavigationLink,
-} from "./config/navigation.config";
+export type { NavigationItem, NavigationLink } from "./config/navigation.config";

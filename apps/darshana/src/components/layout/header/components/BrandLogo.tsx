@@ -3,14 +3,12 @@ import { Sparkles } from "lucide-react";
 
 export function BrandLogo() {
   return (
-    <Link href="/" aria-label="Taanjika homepage" className="group inline-flex flex-col shrink-0">
-      <div className="flex items-center gap-2 text-brand-primary">
-        <span className="text-2xl font-extrabold tracking-wide leading-none">
-          TAANJIKA
-        </span>
+    <Link href="/" aria-label="Taanjika homepage" className="group inline-flex shrink-0 flex-col">
+      <div className="text-brand-primary flex items-center gap-2">
+        <span className="text-2xl leading-none font-extrabold tracking-wide">TAANJIKA</span>
         <Sparkles className="h-5 w-5 shrink-0" aria-hidden="true" />
       </div>
-      <span className="mt-1 text-xs font-medium tracking-wider text-brand-secondary">
+      <span className="text-brand-secondary mt-1 text-xs font-medium tracking-wider">
         Tradition made timeless
       </span>
     </Link>
