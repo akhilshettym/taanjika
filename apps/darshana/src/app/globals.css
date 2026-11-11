@@ -22,10 +22,12 @@
   --typo-secondary: #30251f;
   --typo-tertiary: #49413b;
   --typo-muted: #82766a;
+  --typo-utility: #e7d2b9;
 
   /* border colors */
   --border-primary: #d8c5af;
   --border-secondary: #e5d8c7;
+  --border-tertiary: #741f2b;
 
   /* status colors */
   --status-success: #426746;
@@ -88,10 +90,12 @@
   --color-typo-secondary: var(--typo-secondary);
   --color-typo-tertiary: var(--typo-tertiary);
   --color-typo-muted: var(--typo-muted);
+  --color-typo-utility: var(--typo-utility);
 
   /* Borders */
   --color-border-primary: var(--border-primary);
   --color-border-secondary: var(--border-secondary);
+  --color-border-tertiary: var(--border-tertiary);
 
   /* Status */
   --color-status-success: var(--status-success);

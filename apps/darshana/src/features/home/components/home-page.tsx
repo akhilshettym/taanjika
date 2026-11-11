@@ -1,23 +1,19 @@
-// import HeroSection from "./sections/hero-section";
-// import FeaturedCategories from "./sections/featured-categories";
-// import NewArrivals from "./sections/new-arrivals";
-// import FeaturedCollections from "./sections/featured-collections";
-// import PromotionalBanner from "./sections/promotional-banner";
-// import BrandStory from "./sections/brand-story";
-// import BenefitsSection from "./sections/benefits-section";
+import { homeConfig } from "../config/home.config";
 
-// import { error } from "node:console";
+import { HeroSection } from "./sections/hero-section";
+import { FeaturedCategories } from "./sections/featured-categories";
+import { NewArrivals } from "./sections/new-arrivals";
+import { BrandStory } from "./sections/brand-story";
+import { PromotionalBanner } from "./sections/promotional-banner";
 
-// export default function HomePage() {
-//  return (
-//    <>
-//      <HeroSection />
-//      <FeaturedCategories />
-//      <NewArrivals />
-//      <FeaturedCollections />
-//      <PromotionalBanner />
-//      <BrandStory />
-//      <BenefitsSection />
-//    </>
-//  );
-// }
+export function HomePage() {
+    return (
+        <>
+            {/* <HeroSection {...homeConfig.hero} />
+            <FeaturedCategories {...homeConfig.featuredCategories} />
+            <NewArrivals {...homeConfig.newArrivals} />
+            <BrandStory {...homeConfig.brandStory} />
+            <PromotionalBanner {...homeConfig.promotion} /> */}
+        </>
+    );
+}
