@@ -17,6 +17,7 @@ import {
   createEmailPasswordAccount,
   sendVerificationEmail,
 } from "../services/firebase-auth.service";
+import { CustomButton } from "@/components/ui/CustomButton";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -114,82 +115,44 @@ export function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       {completingGoogleProfile ? (
-        <p className="rounded-lg bg-blue-50 p-3 text-sm text-blue-800">
+        <p className="rounded-lg bg-blue-50 p-3 text-sm text-status-info">
           Complete your Taanjika profile to finish setting up your Google account.
         </p>
+
       ) : null}
       <div className="grid gap-5 sm:grid-cols-2">
-        <AuthField
-          id="firstName"
-          label="First name"
-          placeholder="First name"
-          autoComplete="given-name"
-          error={errors.firstName?.message}
-          {...register("firstName")}
-        />
-        <AuthField
-          id="lastName"
-          label="Last name"
-          placeholder="Last name"
-          autoComplete="family-name"
-          error={errors.lastName?.message}
-          {...register("lastName")}
-        />
+        <AuthField id="firstName" label="First name" placeholder="First name" autoComplete="given-name" error={errors.firstName?.message} {...register("firstName")} />
+
+        <AuthField id="lastName" label="Last name" placeholder="Last name" autoComplete="family-name" error={errors.lastName?.message} {...register("lastName")} />
       </div>
-      <AuthField
-        id="email"
-        label="Email address"
-        type="email"
-        placeholder="you@example.com"
-        autoComplete="email"
-        readOnly={completingGoogleProfile}
-        error={errors.email?.message}
-        {...register("email")}
-      />
+
+      <AuthField id="email" label="Email address" type="email" placeholder="you@example.com" autoComplete="email" readOnly={completingGoogleProfile} error={errors.email?.message} {...register("email")} />
+
       <div className="space-y-3">
-        <PasswordInput
-          id="password"
-          label="Password"
-          autoComplete="new-password"
-          placeholder="Create a password"
-          error={errors.password?.message}
-          {...register("password")}
-        />
+        <PasswordInput id="password" label="Password" autoComplete="new-password" placeholder="Create a password" error={errors.password?.message} {...register("password")} />
         <PasswordRequirements value={password ?? ""} />
       </div>
-      <PasswordInput
-        id="confirmPassword"
-        label="Re-enter password"
-        autoComplete="new-password"
-        placeholder="Re-enter your password"
-        error={errors.confirmPassword?.message}
-        {...register("confirmPassword")}
-      />
-      <AccountIntentSelector
-        value={accountIntent}
-        onChange={(value) => setValue("accountIntent", value, { shouldValidate: true })}
-        error={errors.accountIntent?.message}
-      />
+
+      <PasswordInput id="confirmPassword" label="Re-enter password" autoComplete="new-password" placeholder="Re-enter your password" error={errors.confirmPassword?.message} {...register("confirmPassword")} />
+
+      <AccountIntentSelector value={accountIntent} onChange={(value) => setValue("accountIntent", value, { shouldValidate: true })} error={errors.accountIntent?.message} />
+
       <div className="space-y-3">
-        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
-          <input type="checkbox" className="mt-1 accent-stone-900" {...register("acceptedTerms")} />
+        <label className="flex items-start gap-3 text-xs leading-5 text-typo-primary">
+          <input type="checkbox" className="mt-1 accent-brand-accent-secondary" {...register("acceptedTerms")} />
           <span>
             I accept the{" "}
             <Link className="font-semibold underline" href="/terms">
               Terms and Conditions
-            </Link>
-            .
+            </Link> .
             {errors.acceptedTerms?.message ? (
-              <span className="block text-red-600">{errors.acceptedTerms.message}</span>
+              <span className="block text-status-error">{errors.acceptedTerms.message}</span>
             ) : null}
           </span>
         </label>
-        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
-          <input
-            type="checkbox"
-            className="mt-1 accent-stone-900"
-            {...register("acceptedPrivacyPolicy")}
-          />
+        <label className="flex items-start gap-3 text-xs leading-5 text-typo-primary">
+          <input type="checkbox" className="mt-1 accent-brand-accent-primary" {...register("acceptedPrivacyPolicy")} />
+
           <span>
             I acknowledge the{" "}
             <Link className="font-semibold underline" href="/privacy">
@@ -197,38 +160,35 @@ export function RegisterForm() {
             </Link>
             .
             {errors.acceptedPrivacyPolicy?.message ? (
-              <span className="block text-red-600">{errors.acceptedPrivacyPolicy.message}</span>
+              <span className="block text-status-red">{errors.acceptedPrivacyPolicy.message}</span>
             ) : null}
           </span>
         </label>
-        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
-          <input
-            type="checkbox"
-            className="mt-1 accent-stone-900"
-            {...register("marketingOptIn")}
-          />
+
+        <label className="flex items-start gap-3 text-xs leading-5 text-typo-primary">
+          <input type="checkbox" className="mt-1 accent-brand-accent-primary" {...register("marketingOptIn")} />
           <span>I would like to receive occasional product and art updates. (Optional)</span>
         </label>
+
       </div>
       {serverError ? (
-        <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="rounded-lg bg-status-error p-3 text-sm text-status-error">
           {serverError}
         </p>
       ) : null}
-      <button
-        type="submit"
-        disabled={submitting}
-        className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-60"
-      >
+
+      <CustomButton type="submit" disabled={submitting} variant="default"
+        className="w-full text-typo-utility px-4 py-3 uppercase disabled:cursor-not-allowed disabled:opacity-60">
         {submitting
           ? "Creating account..."
           : completingGoogleProfile
             ? "Complete account"
             : "Create account"}
-      </button>
-      <p className="text-center text-sm text-stone-500">
+      </CustomButton>
+
+      <p className="text-center text-sm text-typo-primary">
         Already have an account?{" "}
-        <Link href="/sign-in" className="font-semibold text-stone-900 hover:underline">
+        <Link href="/sign-in" className="font-semibold text-typo-secondary hover:underline">
           Sign in
         </Link>
       </p>

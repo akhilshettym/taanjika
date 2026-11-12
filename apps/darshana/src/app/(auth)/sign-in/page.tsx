@@ -8,16 +8,14 @@ export const metadata: Metadata = {
   description: "Sign in to your Taanjika account.",
 };
 
-export default function VerifyEmailPage() {
+export default function SignInPage() {
   return (
-    <AuthCard
-      eyebrow="Enter Taanjika"
-      title="Sign-in to Taanjika"
-      description="Become part of a community celebrating art, culture and craftsmanship."
-    >
-      <Suspense fallback={<p className="text-sm text-stone-500">Loading Sign in form</p>}>
+    <AuthCard variant="signin" eyebrow="Your TAANJIKA account" title=" Welcome back" description="Sign in to continue your journey with Indian art.">
+
+      <Suspense fallback={<p className="text-sm bg-background text-typo-secondary">Loading Sign in form</p>}>
         <SignInForm />
       </Suspense>
+
     </AuthCard>
   );
 }

@@ -16,13 +16,7 @@ export function BrandStory({ eyebrow, title, description, image, cta }: BrandSto
   return (
     <section className="grid items-center gap-10 px-6 py-20 md:grid-cols-2 md:px-12">
       <div className="relative aspect-4/3">
-        <Image
-          src={image}
-          alt="Indian artisan craftsmanship"
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
-        />
+        <Image src={image} alt="Indian artisan craftsmanship" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
       </div>
 
       <div>
@@ -30,7 +24,7 @@ export function BrandStory({ eyebrow, title, description, image, cta }: BrandSto
 
         <h2 className="mb-6 text-3xl font-semibold md:text-4xl">{title}</h2>
 
-        <p className="mb-8 text-gray-600">{description}</p>
+        <p className="mb-8 text-typo-tertiary/40">{description}</p>
 
         <Link href={cta.href} className="inline-block border-b border-black pb-2 font-medium">
           {cta.label}

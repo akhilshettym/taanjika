@@ -14,17 +14,14 @@ type HeaderMainProps = {
 
 export function HeaderMain({ isMobileMenuOpen, onMobileMenuToggle }: HeaderMainProps) {
   return (
-    <header className="bg-bg-surface-secondary w-full border-b border-gray-200">
+    <header className="bg-surface-secondary w-full border-b border-gray-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between gap-4 sm:gap-6 lg:gap-8">
           <div className="flex shrink-0 items-center gap-4 sm:gap-6">
             <MobileMenuButton isOpen={isMobileMenuOpen} onToggle={onMobileMenuToggle} />
             <BrandLogo />
 
-            <div
-              className="bg-brand-secondary/50 ml-3 hidden h-6 w-px lg:block"
-              aria-hidden="true"
-            />
+            <div className="bg-secondary/50 ml-3 hidden h-6 w-px lg:block" aria-hidden="true" />
 
             <div className="hidden lg:block">
               <DeliveryLocation />
@@ -39,15 +36,13 @@ export function HeaderMain({ isMobileMenuOpen, onMobileMenuToggle }: HeaderMainP
 
           <div className="flex shrink-0 items-center gap-4 sm:gap-6">
             <AccountActions />
-            <div
-              className="bg-brand-secondary/50 ml-3 hidden h-6 w-px lg:block"
-              aria-hidden="true"
-            />
+
+            <div className="bg-secondary/50 ml-3 hidden h-6 w-px lg:block" aria-hidden="true" />
+
             <OrdersAction />
-            <div
-              className="bg-brand-secondary/50 ml-3 hidden h-6 w-px lg:block"
-              aria-hidden="true"
-            />
+
+            <div className="bg-secondary/50 ml-3 hidden h-6 w-px lg:block" aria-hidden="true" />
+
             <WishlistAction count={0} />
             <CartActions count={0} />
           </div>
@@ -57,6 +52,7 @@ export function HeaderMain({ isMobileMenuOpen, onMobileMenuToggle }: HeaderMainP
           <div className="w-full">
             <SearchBar />
           </div>
+
           <div className="flex items-center justify-between pt-1 sm:hidden">
             <DeliveryLocation />
           </div>

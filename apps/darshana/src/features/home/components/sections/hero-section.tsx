@@ -31,28 +31,21 @@ export function HeroSection({
 
         <h1 className="mb-6 text-4xl font-semibold md:text-6xl">{title}</h1>
 
-        <p className="mb-8 max-w-lg text-gray-600">{description}</p>
+        <p className="mb-8 max-w-lg text-typo-tertiary/40">{description}</p>
 
         <div className="flex flex-wrap gap-4">
-          <Link href={cta.href} className="bg-brand-primary px-6 py-3 text-white">
+          <Link href={cta.href} className="bg-primary px-6 py-3 text-typo-utility">
             {cta.label}
           </Link>
 
-          <Link href={secondaryCta.href} className="border-brand-primary border px-6 py-3">
+          <Link href={secondaryCta.href} className="border-brand-pri border px-6 py-3">
             {secondaryCta.label}
           </Link>
         </div>
       </div>
 
       <div className="relative min-h-100">
-        <Image
-          src={image}
-          alt="Traditional Indian craftsmanship"
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
-        />
+        <Image src={image} alt="Traditional Indian craftsmanship" fill priority sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
       </div>
     </section>
   );

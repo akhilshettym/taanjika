@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 // import { signInWithGoogle, signOutFirebase } from "../services/firebase-auth.service";
 import { signInWithGoogle } from "../services/firebase-auth.service";
 import { authApi, AuthApiError } from "../services/auth-api.service";
+import { CustomButton } from "@/components/ui/CustomButton";
+import Image from "next/image";
 
 export function GoogleAuthButton() {
   const router = useRouter();
@@ -47,17 +49,21 @@ export function GoogleAuthButton() {
 
   return (
     <div className="space-y-2">
-      <button
-        type="button"
+
+      <CustomButton type="button"
         onClick={handleClick}
-        disabled={loading}
-        className="flex w-full items-center justify-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm font-medium text-stone-800 transition hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        <span className="font-semibold">G</span>
+        disabled={loading} variant="secondary"
+        className="w-full text-typo-primary px-4 gap-3 py-3 uppercase disabled:cursor-not-allowed disabled:opacity-60">
+
+        <Image src="/logo/google.png"
+          alt="Continue with google" width={16} height={16}
+          className="h-[18px] w-[18px] shrink-0 object-contain"
+          aria-hidden="true" />
         {loading ? "Connecting..." : "Continue with Google"}
-      </button>
+      </CustomButton>
+
       {error ? (
-        <p role="alert" className="text-xs text-red-600">
+        <p role="alert" className="text-xs text-status-error">
           {error}
         </p>
       ) : null}
