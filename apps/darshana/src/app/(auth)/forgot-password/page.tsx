@@ -10,12 +10,15 @@ export const metadata: Metadata = {
 
 export default function ForgotPasswordPage() {
   return (
-    <AuthCard eyebrow="Account recovery" title="Reset your password" description="Enter your email address and we'll send reset instructions.">
-
+    <AuthCard
+      eyebrow="Account recovery"
+      title="Reset your password"
+      description="Enter your email address and we'll send reset instructions."
+    >
       <div className="space-y-5">
         <ForgotPasswordForm />
 
-        <p className="text-center text-sm text-typo-tertiary">
+        <p className="text-typo-tertiary text-center text-sm">
           <Link href="/sign-in" className="font-semibold underline">
             Back to sign in
           </Link>

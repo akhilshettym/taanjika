@@ -31,10 +31,10 @@ export function HeroSection({
 
         <h1 className="mb-6 text-4xl font-semibold md:text-6xl">{title}</h1>
 
-        <p className="mb-8 max-w-lg text-typo-tertiary/40">{description}</p>
+        <p className="text-typo-tertiary/40 mb-8 max-w-lg">{description}</p>
 
         <div className="flex flex-wrap gap-4">
-          <Link href={cta.href} className="bg-primary px-6 py-3 text-typo-utility">
+          <Link href={cta.href} className="bg-primary text-typo-utility px-6 py-3">
             {cta.label}
           </Link>
 
@@ -45,7 +45,14 @@ export function HeroSection({
       </div>
 
       <div className="relative min-h-100">
-        <Image src={image} alt="Traditional Indian craftsmanship" fill priority sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+        <Image
+          src={image}
+          alt="Traditional Indian craftsmanship"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+        />
       </div>
     </section>
   );

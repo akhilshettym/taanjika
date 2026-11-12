@@ -39,14 +39,10 @@ export function VerifyEmailContent() {
         return;
       }
       if (profile.roles.includes("ADMIN")) router.replace("/admin");
-
       else if (profile.roles.includes("ARTIST")) router.replace("/artist");
-
       else if (profile.artistApplicationStatus === "PENDING")
         router.replace("/artist/application-status");
-
       else router.replace("/");
-
     } catch {
       setMessage("We couldn't confirm your Taanjika profile yet. Please try again.");
     } finally {
@@ -69,13 +65,23 @@ export function VerifyEmailContent() {
     }
   }
 
-  if (isLoading || !user) return <p className="text-sm text-typo-tertiary">Loading account...</p>;
+  if (isLoading || !user) return <p className="text-typo-tertiary text-sm">Loading account...</p>;
 
   return (
     <div className="space-y-4">
-      <EmailVerificationNotice email={user.email ?? "your registered email"} onResend={resend} busy={busy} message={message} />
+      <EmailVerificationNotice
+        email={user.email ?? "your registered email"}
+        onResend={resend}
+        busy={busy}
+        message={message}
+      />
 
-      <button type="button" onClick={checkStatus} disabled={busy} className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-typo-utility disabled:opacity-60">
+      <button
+        type="button"
+        onClick={checkStatus}
+        disabled={busy}
+        className="text-typo-utility w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold disabled:opacity-60"
+      >
         I&apos;ve verified my email
       </button>
     </div>

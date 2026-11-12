@@ -10,12 +10,17 @@ export const metadata: Metadata = {
 
 export default function SignInPage() {
   return (
-    <AuthCard variant="signin" eyebrow="Your TAANJIKA account" title=" Welcome back" description="Sign in to continue your journey with Indian art.">
-
-      <Suspense fallback={<p className="text-sm bg-background text-typo-secondary">Loading Sign in form</p>}>
+    <AuthCard
+      variant="signin"
+      eyebrow="Your TAANJIKA account"
+      title=" Welcome back"
+      description="Sign in to continue your journey with Indian art."
+    >
+      <Suspense
+        fallback={<p className="bg-background text-typo-secondary text-sm">Loading Sign in form</p>}
+      >
         <SignInForm />
       </Suspense>
-
     </AuthCard>
   );
 }

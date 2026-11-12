@@ -49,21 +49,26 @@ export function GoogleAuthButton() {
 
   return (
     <div className="space-y-2">
-
-      <CustomButton type="button"
+      <CustomButton
+        type="button"
         onClick={handleClick}
-        disabled={loading} variant="secondary"
-        className="w-full text-typo-primary px-4 gap-3 py-3 uppercase disabled:cursor-not-allowed disabled:opacity-60">
-
-        <Image src="/logo/google.png"
-          alt="Continue with google" width={16} height={16}
+        disabled={loading}
+        variant="secondary"
+        className="text-typo-primary w-full gap-3 px-4 py-3 uppercase disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        <Image
+          src="/logo/google.png"
+          alt="Continue with google"
+          width={16}
+          height={16}
           className="h-[18px] w-[18px] shrink-0 object-contain"
-          aria-hidden="true" />
+          aria-hidden="true"
+        />
         {loading ? "Connecting..." : "Continue with Google"}
       </CustomButton>
 
       {error ? (
-        <p role="alert" className="text-xs text-status-error">
+        <p role="alert" className="text-status-error text-xs">
           {error}
         </p>
       ) : null}

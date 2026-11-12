@@ -17,27 +17,41 @@ export function SearchBar() {
   };
 
   return (
-    <form role="search" onSubmit={handleSearch}
-      className="group border-brand-pri/40 bg-surface-muted focus-within:border-brand-pri hover:border-brand-pri relative flex h-10 w-full items-center rounded-full border px-1 transition-all duration-200">
-
+    <form
+      role="search"
+      onSubmit={handleSearch}
+      className="group border-brand-pri/40 bg-surface-muted focus-within:border-brand-pri hover:border-brand-pri relative flex h-10 w-full items-center rounded-full border px-1 transition-all duration-200"
+    >
       <label htmlFor="header-search" className="sr-only">
         Search products
       </label>
 
-      <input id="header-search" type="search" value={query}
+      <input
+        id="header-search"
+        type="search"
+        value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder="Search paintings, art forms, artists..."
-        className="text-typo-primary placeholder:text-typo-primary/60 w-full bg-transparent pr-2 pl-6 text-xs outline-none focus:outline-none focus:ring-0 sm:text-xs [&::-webkit-search-cancel-button]:appearance-none" autoComplete="off" />
+        className="text-typo-primary placeholder:text-typo-primary/60 w-full bg-transparent pr-2 pl-6 text-xs outline-none focus:ring-0 focus:outline-none sm:text-xs [&::-webkit-search-cancel-button]:appearance-none"
+        autoComplete="off"
+      />
 
       {query && (
-        <button type="button" onClick={() => setQuery('')} aria-label="Clear search"
-          className="text-typo-primary/70 hover:text-typo-primary mr-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors">
+        <button
+          type="button"
+          onClick={() => setQuery("")}
+          aria-label="Clear search"
+          className="text-typo-primary/70 hover:text-typo-primary mr-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors"
+        >
           <X size={15} strokeWidth={2.5} aria-hidden="true" />
         </button>
       )}
 
-      <button type="submit" aria-label="Submit search"
-        className="bg-primary text-surface-muted flex h-8 w-10 shrink-0 items-center justify-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none active:scale-95">
+      <button
+        type="submit"
+        aria-label="Submit search"
+        className="bg-primary text-surface-muted flex h-8 w-10 shrink-0 items-center justify-center rounded-full transition-transform hover:scale-105 focus-visible:outline-none active:scale-95"
+      >
         <Search size={16} strokeWidth={2.5} aria-hidden="true" />
       </button>
     </form>

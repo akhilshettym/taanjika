@@ -7,11 +7,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <>
       <HeaderSecondary />
 
-      <main className="min-h-screen bg-surfacer-muted">
-        {children}
-      </main>
+      <main className="bg-surfacer-muted min-h-screen">{children}</main>
 
       <FooterSecondary />
     </>
-  )
+  );
 }

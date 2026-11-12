@@ -112,50 +112,75 @@ export function HeaderUtility() {
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-1 text-xs">
           <p className="whitespace-nowrap">
             For orders and enquiries:{" "}
-            <a href={siteConfig.contact.phoneHref} className="font-semibold transition-opacity hover:opacity-80">
+            <a
+              href={siteConfig.contact.phoneHref}
+              className="font-semibold transition-opacity hover:opacity-80"
+            >
               {siteConfig.contact.phoneDisplay}
             </a>
           </p>
 
           <span aria-hidden="true" className="hidden opacity-60 sm:inline">
-            {" "} | {" "}
+            {" "}
+            |{" "}
           </span>
 
           <p className="hidden sm:block">Discover handcrafted art from India.</p>
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-3 text-xs sm:gap-4">
-          <Link href="/contact" className="font-medium whitespace-nowrap transition-opacity hover:opacity-80">
+          <Link
+            href="/contact"
+            className="font-medium whitespace-nowrap transition-opacity hover:opacity-80"
+          >
             Contact Us
           </Link>
 
           <div ref={dropdownRef} className="relative">
-            <button ref={triggerRef} type="button"
-              aria-label={`Select language, current language ${selectedLanguage.label}`} aria-haspopup="menu" aria-expanded={isOpen} aria-controls={dropdownId}
+            <button
+              ref={triggerRef}
+              type="button"
+              aria-label={`Select language, current language ${selectedLanguage.label}`}
+              aria-haspopup="menu"
+              aria-expanded={isOpen}
+              aria-controls={dropdownId}
               onClick={() => setIsOpen((previous) => !previous)}
               onKeyDown={handleTriggerKeyDown}
-              className="border-typo-utility/30 bg-secondary text-typo-utility hover:border-typo-utility/60 focus-visible:ring-typo-utility/50 inline-flex w-36 items-center justify-between gap-3 rounded-md border px-3 py-1.5 text-xs transition-colors focus-visible:ring-2 focus-visible:outline-none">
-
+              className="border-typo-utility/30 bg-secondary text-typo-utility hover:border-typo-utility/60 focus-visible:ring-typo-utility/50 inline-flex w-36 items-center justify-between gap-3 rounded-md border px-3 py-1.5 text-xs transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            >
               <span>{selectedLanguage.label}</span>
 
-              <ChevronDown aria-hidden="true" size={14} strokeWidth={1.75} className={`shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+              <ChevronDown
+                aria-hidden="true"
+                size={14}
+                strokeWidth={1.75}
+                className={`shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+              />
             </button>
 
             {isOpen && (
-              <div id={dropdownId} role="menu" aria-label="Available languages"
+              <div
+                id={dropdownId}
+                role="menu"
+                aria-label="Available languages"
                 onKeyDown={handleMenuKeyDown}
-                className="bg-secondary absolute top-full right-0 z-50 mt-2 w-36 rounded-lg border border-brand-pri p-1.5 shadow-lg">
+                className="bg-secondary border-brand-pri absolute top-full right-0 z-50 mt-2 w-36 rounded-lg border p-1.5 shadow-lg"
+              >
                 {languages.map((item, index) => {
                   const isSelected = language === item.value;
 
                   return (
-                    <button key={item.value}
+                    <button
+                      key={item.value}
                       ref={(element) => {
                         optionRefs.current[index] = element;
                       }}
-                      type="button" role="menuitemradio" aria-checked={isSelected}
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={isSelected}
                       onClick={() => selectLanguage(item.value)}
-                      className={`focus-visible:ring-typo-utility/50 flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs transition-colors focus-visible:ring-2 focus-visible:outline-none ${isSelected ? "bg-primary/10 font-semibold" : "hover:bg-primary/10"}`}>
+                      className={`focus-visible:ring-typo-utility/50 flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs transition-colors focus-visible:ring-2 focus-visible:outline-none ${isSelected ? "bg-primary/10 font-semibold" : "hover:bg-primary/10"}`}
+                    >
                       <span>{item.label}</span>
 
                       {isSelected && <Check aria-hidden="true" size={14} strokeWidth={2} />}

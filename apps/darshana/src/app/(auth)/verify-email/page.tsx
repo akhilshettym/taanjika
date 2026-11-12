@@ -9,8 +9,11 @@ export const metadata: Metadata = {
 
 export default function VerifyEmailPage() {
   return (
-    <AuthCard eyebrow="One last step" title="Verify your email" description="Verify your email address before continuing to Taanjika.">
-
+    <AuthCard
+      eyebrow="One last step"
+      title="Verify your email"
+      description="Verify your email address before continuing to Taanjika."
+    >
       <VerifyEmailContent />
     </AuthCard>
   );

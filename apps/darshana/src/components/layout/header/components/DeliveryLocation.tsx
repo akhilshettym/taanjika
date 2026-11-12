@@ -3,8 +3,11 @@ import { MapPin } from "lucide-react";
 
 export function DeliveryLocation() {
   return (
-    <Link href="/delivery-location" className="text-typo-primary hover:text-typo-utility flex items-center gap-2 text-xs transition-colors" aria-label="Change delivery location">
-
+    <Link
+      href="/delivery-location"
+      className="text-typo-primary hover:text-typo-utility flex items-center gap-2 text-xs transition-colors"
+      aria-label="Change delivery location"
+    >
       <MapPin size={20} strokeWidth={2} aria-hidden="true" className="text-typo-primary shrink-0" />
 
       <div className="flex flex-col text-left leading-tight">

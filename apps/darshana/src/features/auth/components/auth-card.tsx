@@ -39,8 +39,13 @@ const ASIDE_HEADER: Record<
 };
 
 export function AuthCard({
-  variant = "minimal", eyebrow, title, description,
-  signinHref = "/sign-in", registerHref = "/register", children,
+  variant = "minimal",
+  eyebrow,
+  title,
+  description,
+  signinHref = "/sign-in",
+  registerHref = "/register",
+  children,
 }: AuthCardProps) {
   const isSplit = variant === "signin" || variant === "register";
   const header = isSplit ? ASIDE_HEADER[variant] : null;
@@ -61,42 +66,46 @@ export function AuthCard({
   ];
 
   return (
-    <main className={`min-h-screen bg-background ${isSplit ? "grid lg:grid-cols-2" : "flex items-center justify-center"}`}>
+    <main
+      className={`bg-background min-h-screen ${isSplit ? "grid lg:grid-cols-2" : "flex items-center justify-center"}`}
+    >
       {isSplit && header && (
-        <aside className="hidden min-h-screen p-6 lg:flex lg:p-8 xl:p-8">
-          <div className="flex rounded-sm w-full flex-col justify-between border border-brand-pri/15 bg-surface-muted p-8 xl:p-10">
+        <aside className="hidden min-h-screen p-10 lg:flex lg:p-10 xl:p-15">
+          <div className="border-brand-pri/15 bg-surface-muted flex w-full flex-col justify-between rounded-sm border p-8 xl:p-10">
             <div>
-              <p className="pb-2 text-xs font-bold tracking-wider text-typo-primary uppercase">
+              <p className="text-typo-primary pb-2 text-xs font-bold tracking-wider uppercase">
                 TAANJIKA
               </p>
 
-              <h2 className="text-2xl font-bold tracking-normal text-typo-primary xl:text-3xl">
+              <h2 className="text-typo-primary text-2xl font-bold tracking-normal xl:text-3xl">
                 {header.headline}
               </h2>
 
-              <p className="pt-2 text-sm leading-5 text-typo-tertiary text-justify">
+              <p className="text-typo-tertiary pt-2 text-justify text-sm leading-5">
                 {header.subcopy}
               </p>
             </div>
 
             <div className="my-5">
               <AuthShowcaseCarousel />
-              <p className="pt-4 text-center text-base font-medium tracking-wide text-typo-primary">
+              <p className="text-typo-primary pt-4 text-center text-base font-medium tracking-wide">
                 {header.tagline}
               </p>
             </div>
 
             {variant === "signin" ? (
-              <div className="border-t border-brand-pri/15 pt-5">
-                <h3 className="text-sm font-semibold tracking-[0.16em] text-typo-secondary uppercase">
+              <div className="border-brand-pri/15 border-t pt-5">
+                <h3 className="text-typo-secondary text-sm font-semibold tracking-[0.16em] uppercase">
                   Inside Your Account
                 </h3>
 
                 <ul className="mt-3 space-y-2.5">
                   {SIGNIN_HIGHLIGHTS.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-typo-tertiary">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
-                        aria-hidden="true" />
+                    <li key={item} className="text-typo-tertiary flex items-start gap-2.5 text-sm">
+                      <span
+                        className="bg-primary mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                        aria-hidden="true"
+                      />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -104,52 +113,63 @@ export function AuthCard({
               </div>
             ) : (
               <div className="space-y-5">
-                <div className="grid grid-cols-3 divide-x divide-[var(--brand-primary)]/15 border border-brand-pri/15 bg-background/60">
+                <div className="border-brand-pri/15 bg-background/60 grid grid-cols-3 divide-x divide-[var(--brand-primary)]/15 border">
                   {REGISTER_PILLARS.map((pillar) => (
                     <div key={pillar.label} className="px-3 py-3 text-center">
-                      <p className="text-xs font-bold tracking-wide text-typo-primary uppercase">
+                      <p className="text-typo-primary text-xs font-bold tracking-wide uppercase">
                         {pillar.label}
                       </p>
-                      <p className="mt-0.5 text-[11px] text-typo-tertiary">
-                        {pillar.detail}
-                      </p>
+                      <p className="text-typo-tertiary mt-0.5 text-[11px]">{pillar.detail}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="border-t border-brand-pri/15 pt-4">
-                  <h3 className="text-sm font-semibold tracking-[0.16em] text-typo-secondary uppercase">
+                <div className="border-brand-pri/15 border-t pt-4">
+                  <h3 className="text-typo-secondary text-sm font-semibold tracking-[0.16em] uppercase">
                     Member Privileges
                   </h3>
 
                   <ul className="mt-5 mb-5 space-y-2">
                     {ACCOUNT_BENEFITS.map((benefit) => (
-                      <li key={benefit} className="flex items-start gap-2.5 text-sm text-typo-tertiary">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+                      <li
+                        key={benefit}
+                        className="text-typo-tertiary flex items-start gap-2.5 text-sm"
+                      >
+                        <span
+                          className="bg-primary mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                          aria-hidden="true"
+                        />
                         <span>{benefit}</span>
                       </li>
                     ))}
                   </ul>
-                  <p className="pt-4 border-t border-brand-pri/15 text-sm leading-5 text-typo-tertiary text-justify">
-                    Your personal dashboard allows you to effortlessly manage your private collection, save favorite styles, and receive tailored curation alerts matched to your aesthetic. From exploring rare regional techniques to enjoying seamless, insured delivery straight to your door, your account brings the depth of India&apos;s artistic heritage directly into your hands.
+                  <p className="border-brand-pri/15 text-typo-tertiary border-t pt-4 text-justify text-sm leading-5">
+                    Your personal dashboard allows you to effortlessly manage your private
+                    collection, save favorite styles, and receive tailored curation alerts matched
+                    to your aesthetic. From exploring rare regional techniques to enjoying seamless,
+                    insured delivery straight to your door, your account brings the depth of
+                    India&apos;s artistic heritage directly into your hands.
                   </p>
                 </div>
 
-                <div className="flex items-start gap-3 border border-brand-pri/15 bg-background/60 p-3.5">
-                  <Award size={18} strokeWidth={1.75} className="mt-2 shrink-0 text-typo-primary" aria-hidden="true" />
-                  <p className="text-xs leading-5 text-typo-tertiary/50">
-                    <span className="font-semibold text-typo-tertiary">
-                      Authentic Hand-painted
-                    </span>{" "}
-                    Every piece carries its own distinct soul, with natural variations shaped by the art form so no two are ever alike.
+                <div className="border-brand-pri/15 bg-background/60 flex items-start gap-3 border p-3.5">
+                  <Award
+                    size={18}
+                    strokeWidth={1.75}
+                    className="text-typo-primary mt-2 shrink-0"
+                    aria-hidden="true"
+                  />
+                  <p className="text-typo-tertiary/50 text-xs leading-5">
+                    <span className="text-typo-tertiary font-semibold">Authentic Hand-painted</span>{" "}
+                    Every piece carries its own distinct soul, with natural variations shaped by the
+                    art form so no two are ever alike.
                   </p>
                 </div>
               </div>
             )}
 
-            <div className="mt-5 border-t border-brand-pri/15">
-              <p className="flex flex-wrap items-center justify-center gap-2 pt-6 text-xs font-medium tracking-wide text-typo-secondary">
-
+            <div className="border-brand-pri/15 mt-5 border-t">
+              <p className="text-typo-secondary flex flex-wrap items-center justify-center gap-2 pt-6 text-xs font-medium tracking-wide">
                 <ShieldCheck size={15} strokeWidth={2} className="shrink-0" aria-hidden="true" />
 
                 <span>Authentic art</span>
@@ -165,24 +185,33 @@ export function AuthCard({
         </aside>
       )}
 
-      <section className={`flex min-h-screen w-full justify-center px-5 sm:px-8 ${isSplit
-        ? "items-start pt-10 pb-12 sm:pt-14 lg:pt-16" : "items-center py-12"}`}>
-        <div className={`w-full max-w-md ${!isSplit ? "border border-brand-pri/15 bg-surface-muted/40 p-8 sm:p-10" : ""}`}>
-
-          <p className={`mb-8 text-xl font-semibold tracking-[0.16em] text-typo-primary ${isSplit ? "lg:hidden" : ""}`}>
+      <section
+        className={`flex min-h-screen w-full justify-center px-5 sm:px-8 ${
+          isSplit ? "items-start pt-10 pb-12 sm:pt-14 lg:pt-16" : "items-center py-12"
+        }`}
+      >
+        <div
+          className={`w-full max-w-2xl ${!isSplit ? "border-brand-pri/15 bg-surface-muted/40 border p-8 sm:p-10" : ""}`}
+        >
+          <p
+            className={`text-typo-primary mb-8 text-xl font-semibold tracking-[0.16em] ${isSplit ? "lg:hidden" : ""}`}
+          >
             TAANJIKA
           </p>
 
           {isSplit && (
             <nav aria-label="Authentication mode" className="mb-8 grid grid-cols-2 gap-2.5">
               {authModes.map((mode) => (
-                <Link key={mode.id} href={mode.href}
+                <Link
+                  key={mode.id}
+                  href={mode.href}
                   aria-current={mode.active ? "page" : undefined}
-                  className={`flex items-center rounded-sm justify-center gap-2.5 border px-4 py-3 text-xs font-semibold tracking-wider uppercase transition-colors ${mode.active
-                    ? "border-brand-pri bg-surface-muted text-typo-primary"
-                    : "border-brand-pri/15 bg-transparent text-typo-tertiary hover:border-brand-pri/40 hover:text-typo-tertiary/50"
-                    }`}>
-
+                  className={`flex items-center justify-center gap-2.5 rounded-sm border px-4 py-3 text-xs font-semibold tracking-wider uppercase transition-colors ${
+                    mode.active
+                      ? "border-brand-pri bg-surface-muted text-typo-primary"
+                      : "border-brand-pri/15 text-typo-tertiary hover:border-brand-pri/40 hover:text-typo-tertiary/50 bg-transparent"
+                  }`}
+                >
                   <span>{mode.label}</span>
                 </Link>
               ))}
@@ -190,14 +219,10 @@ export function AuthCard({
           )}
 
           <div className="mb-8">
-            <p className="text-xs font-semibold text-typo-secondary uppercase">
-              {eyebrow}
-            </p>
+            <p className="text-typo-secondary text-xs font-semibold uppercase">{eyebrow}</p>
 
-            <h1 className="pt-3 text-3xl font-bold text-typo-tertiary uppercase">
-              {title}
-            </h1>
-            <p className="pt-1 text-sm leading-6 text-typo-tertiary">{description}</p>
+            <h1 className="text-typo-tertiary pt-3 text-3xl font-bold uppercase">{title}</h1>
+            <p className="text-typo-tertiary pt-1 text-sm leading-6">{description}</p>
           </div>
 
           {children}

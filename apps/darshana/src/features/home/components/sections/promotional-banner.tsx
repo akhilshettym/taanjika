@@ -22,24 +22,24 @@ export function PromotionalBanner({
   return (
     <section className="relative overflow-hidden px-6 py-20 md:px-12">
       <div className="relative min-h-87.5">
-        <Image src={image} alt="Handcrafted Indian art collection" fill sizes="100vw" className="object-cover" />
+        <Image
+          src={image}
+          alt="Handcrafted Indian art collection"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
 
         <div className="absolute inset-0 bg-black/50" />
 
-        <div className="relative z-10 flex min-h-87.5 flex-col items-center justify-center px-6 text-center text-typo-utility">
-          <p className="mb-4 text-sm tracking-widest">
-            {eyebrow}
-          </p>
+        <div className="text-typo-utility relative z-10 flex min-h-87.5 flex-col items-center justify-center px-6 text-center">
+          <p className="mb-4 text-sm tracking-widest">{eyebrow}</p>
 
-          <h2 className="mb-4 max-w-2xl text-3xl font-semibold md:text-5xl">
-            {title}
-          </h2>
+          <h2 className="mb-4 max-w-2xl text-3xl font-semibold md:text-5xl">{title}</h2>
 
-          <p className="mb-8 max-w-xl">
-            {description}
-          </p>
+          <p className="mb-8 max-w-xl">{description}</p>
 
-          <Link href={cta.href} className="bg-background px-6 py-3 text-typo-primary">
+          <Link href={cta.href} className="bg-background text-typo-primary px-6 py-3">
             {cta.label}
           </Link>
         </div>

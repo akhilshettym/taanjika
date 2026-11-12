@@ -32,7 +32,6 @@
   --border-brand-pri: #741f2b;
   --border-brand-sec: #54232a;
 
-
   /* status colors */
   --status-success: #426746;
   --status-warning: #94651b;
@@ -202,7 +201,6 @@ b {
 button,
 input,
 textarea,
-
 button {
   cursor: pointer;
 }

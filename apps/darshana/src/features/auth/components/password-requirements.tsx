@@ -12,13 +12,16 @@ const requirements = [
 
 export function PasswordRequirements({ value }: { value: string }) {
   return (
-    <div className="rounded-xl bg-surface-primary p-5">
-      <p className="pb-4 text-xs font-medium text-typo-secondary">Password must contain:</p>
+    <div className="bg-surface-primary rounded-xl p-5">
+      <p className="text-typo-secondary pb-4 text-xs font-medium">Password must contain:</p>
       <ul className="grid gap-1.5 sm:grid-cols-2">
         {requirements.map((item) => {
           const passed = value.length > 0 && item.test(value);
           return (
-            <li key={item.label} className={`flex items-center gap-2 text-xs ${passed ? "text-status-success" : "text-typo-tertiary"}`}>
+            <li
+              key={item.label}
+              className={`flex items-center gap-2 text-xs ${passed ? "text-status-success" : "text-typo-tertiary"}`}
+            >
               <span aria-hidden="true" className="inline-flex items-center">
                 {passed ? (
                   <Check className="h-4 w-4 shrink-0" />
