@@ -22,9 +22,11 @@ export function VerifyEmailContent() {
     if (!user) return;
     setBusy(true);
     setMessage(null);
+
     try {
       await reload(user);
       await user.getIdToken(true);
+
       if (!user.emailVerified) {
         setMessage("Your email is not verified yet. Open the link in your inbox and try again.");
         return;
@@ -52,6 +54,7 @@ export function VerifyEmailContent() {
     if (!user) return;
     setBusy(true);
     setMessage(null);
+
     try {
       await resendVerificationEmail(user);
       setMessage("A verification email has been sent if your account still needs verification.");
@@ -62,7 +65,8 @@ export function VerifyEmailContent() {
     }
   }
 
-  if (isLoading || !user) return <p className="text-sm text-stone-500">Loading account...</p>;
+  if (isLoading || !user) return <p className="text-typo-tertiary text-sm">Loading account...</p>;
+
   return (
     <div className="space-y-4">
       <EmailVerificationNotice
@@ -71,11 +75,12 @@ export function VerifyEmailContent() {
         busy={busy}
         message={message}
       />
+
       <button
         type="button"
         onClick={checkStatus}
         disabled={busy}
-        className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-white disabled:opacity-60"
+        className="text-typo-utility w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold disabled:opacity-60"
       >
         I&apos;ve verified my email
       </button>

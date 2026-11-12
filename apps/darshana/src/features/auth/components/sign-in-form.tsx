@@ -11,6 +11,7 @@ import { GoogleAuthButton } from "./google-auth-button";
 import { signInSchema, type SignInFormValues } from "../schemas/auth.schema";
 import { signInWithEmailPassword } from "../services/firebase-auth.service";
 import { authApi, AuthApiError } from "../services/auth-api.service";
+import { CustomButton } from "@/components/ui/CustomButton";
 
 export function SignInForm() {
   const router = useRouter();
@@ -30,15 +31,19 @@ export function SignInForm() {
     setServerError(null);
     try {
       const user = await signInWithEmailPassword(values.email, values.password);
+
       if (!user.emailVerified) {
         router.push("/verify-email");
         return;
       }
+
       const profile = await authApi.getMe(user);
+
       if (profile.status !== "ACTIVE") {
         setServerError("Your Taanjika account is not currently active. Please contact support.");
         return;
       }
+
       if (profile.roles.includes("ADMIN")) router.push("/admin");
       else if (profile.roles.includes("ARTIST")) router.push("/artist");
       else if (profile.artistApplicationStatus === "PENDING")
@@ -67,6 +72,7 @@ export function SignInForm() {
           error={errors.email?.message}
           {...register("email")}
         />
+
         <div className="space-y-2">
           <PasswordInput
             id="password"
@@ -76,37 +82,44 @@ export function SignInForm() {
             error={errors.password?.message}
             {...register("password")}
           />
+
           <div className="text-right">
             <Link
               href="/forgot-password"
-              className="text-xs font-medium text-stone-600 hover:underline"
+              className="text-typo-primary text-xs font-medium hover:underline"
             >
               Forgot password?
             </Link>
           </div>
         </div>
+
         {serverError ? (
-          <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+          <p role="alert" className="text-status-error rounded-lg bg-red-50 p-3 text-sm">
             {serverError}
           </p>
         ) : null}
-        <button
+
+        <CustomButton
           type="submit"
           disabled={submitting}
-          className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-60"
+          variant="default"
+          className="text-typo-utility w-full px-4 py-3 uppercase disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? "Signing in..." : "Sign in"}
-        </button>
+        </CustomButton>
       </form>
+
       <div className="flex items-center gap-4">
         <span className="h-px flex-1 bg-stone-200" />
-        <span className="text-xs text-stone-400">OR</span>
+        <span className="text-typo-tertiary/40 text-xs">OR</span>
         <span className="h-px flex-1 bg-stone-200" />
       </div>
+
       <GoogleAuthButton />
-      <p className="text-center text-sm text-stone-500">
+
+      <p className="text-typo-primary text-center text-sm">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="font-semibold text-stone-900 hover:underline">
+        <Link href="/register" className="text-typo-primary font-bold hover:underline">
           Create account
         </Link>
       </p>

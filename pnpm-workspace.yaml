@@ -6,6 +6,9 @@ allowBuilds:
   "@parcel/watcher": false
   protobufjs: true
 
+minimumReleaseAgeExclude:
+  - lucide-react@1.72.0
+
 overrides:
   # Previous security fix — keep this.
   "@grpc/grpc-js": "1.14.7"

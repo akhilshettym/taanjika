@@ -1,6 +1,8 @@
 "use client";
 
+import { NotebookPen } from "lucide-react";
 import type { AccountIntent } from "../types/auth.types";
+
 interface Props {
   value: AccountIntent;
   onChange: (value: AccountIntent) => void;
@@ -12,25 +14,28 @@ export function AccountIntentSelector({ value, onChange, error }: Props) {
     {
       value: "COLLECTOR",
       title: "Customer / Collector",
-      description: "Discover, purchase and collect Indian artwork.",
+      description:
+        "Explore diverse art forms, uncover their rich histories, and build your personal collection. Acquire authenticated artworks directly from master studios and contemporary artists.",
     },
     {
       value: "ARTIST",
       title: "Artist / Seller",
-      description: "Apply to showcase and sell your artwork on Taanjika.",
+      description:
+        "Apply for an artist or seller account to curate your own digital gallery on Taanjika. Showcase your creations to a global audience of collectors and sell your work seamlessly.",
     },
   ];
 
   return (
     <fieldset className="space-y-2">
-      <legend className="text-sm font-medium text-stone-700">
+      <legend className="text-typo-primary text-sm font-medium">
         How would you like to use Taanjika?
       </legend>
+
       <div className="grid gap-3">
         {options.map((option) => (
           <label
             key={option.value}
-            className={`flex cursor-pointer gap-3 rounded-xl border p-4 transition ${value === option.value ? "border-stone-900 bg-stone-50" : "border-stone-200 hover:border-stone-400"}`}
+            className={`flex cursor-pointer gap-3 rounded-sm border p-4 transition ${value === option.value ? "border-tertiary bg-surface-secondary" : "border-primary bg-color-disabled hover:border-secondary"}`}
           >
             <input
               type="radio"
@@ -38,24 +43,29 @@ export function AccountIntentSelector({ value, onChange, error }: Props) {
               value={option.value}
               checked={value === option.value}
               onChange={() => onChange(option.value)}
-              className="mt-1 accent-stone-900"
+              className="accent-brand-secondary mt-1"
             />
+
             <span>
-              <span className="block text-sm font-semibold text-stone-900">{option.title}</span>
-              <span className="mt-1 block text-xs leading-5 text-stone-500">
+              <span className="text-typo-primary block text-sm font-semibold">{option.title}</span>
+
+              <span className="text-typo-tertiary mt-1 block text-xs leading-4.5">
                 {option.description}
               </span>
+
               {option.value === "ARTIST" ? (
-                <span className="mt-2 block text-xs font-medium text-amber-700">
-                  Artist access requires approval.
+                <span className="text-typo-primary mt-2 inline-flex items-center gap-1.5 text-xs font-medium">
+                  <NotebookPen size={16} className="size-3.5 shrink-0" strokeWidth={2} />
+                  <span>Artist access requires approval from admin.</span>
                 </span>
               ) : null}
             </span>
           </label>
         ))}
       </div>
+
       {error ? (
-        <p role="alert" className="text-xs text-red-600">
+        <p role="alert" className="text-status-error text-xs">
           {error}
         </p>
       ) : null}
