@@ -17,6 +17,7 @@ import {
   createEmailPasswordAccount,
   sendVerificationEmail,
 } from "../services/firebase-auth.service";
+import { CustomButton } from "@/components/ui/CustomButton";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -114,7 +115,7 @@ export function RegisterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       {completingGoogleProfile ? (
-        <p className="rounded-lg bg-blue-50 p-3 text-sm text-blue-800">
+        <p className="text-status-info rounded-lg bg-blue-50 p-3 text-sm">
           Complete your Taanjika profile to finish setting up your Google account.
         </p>
       ) : null}
@@ -127,6 +128,7 @@ export function RegisterForm() {
           error={errors.firstName?.message}
           {...register("firstName")}
         />
+
         <AuthField
           id="lastName"
           label="Last name"
@@ -136,6 +138,7 @@ export function RegisterForm() {
           {...register("lastName")}
         />
       </div>
+
       <AuthField
         id="email"
         label="Email address"
@@ -146,6 +149,7 @@ export function RegisterForm() {
         error={errors.email?.message}
         {...register("email")}
       />
+
       <div className="space-y-3">
         <PasswordInput
           id="password"
@@ -157,6 +161,7 @@ export function RegisterForm() {
         />
         <PasswordRequirements value={password ?? ""} />
       </div>
+
       <PasswordInput
         id="confirmPassword"
         label="Re-enter password"
@@ -165,31 +170,38 @@ export function RegisterForm() {
         error={errors.confirmPassword?.message}
         {...register("confirmPassword")}
       />
+
       <AccountIntentSelector
         value={accountIntent}
         onChange={(value) => setValue("accountIntent", value, { shouldValidate: true })}
         error={errors.accountIntent?.message}
       />
+
       <div className="space-y-3">
-        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
-          <input type="checkbox" className="mt-1 accent-stone-900" {...register("acceptedTerms")} />
+        <label className="text-typo-primary flex items-start gap-3 text-xs leading-5">
+          <input
+            type="checkbox"
+            className="accent-brand-accent-secondary mt-1"
+            {...register("acceptedTerms")}
+          />
           <span>
             I accept the{" "}
             <Link className="font-semibold underline" href="/terms">
               Terms and Conditions
-            </Link>
+            </Link>{" "}
             .
             {errors.acceptedTerms?.message ? (
-              <span className="block text-red-600">{errors.acceptedTerms.message}</span>
+              <span className="text-status-error block">{errors.acceptedTerms.message}</span>
             ) : null}
           </span>
         </label>
-        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+        <label className="text-typo-primary flex items-start gap-3 text-xs leading-5">
           <input
             type="checkbox"
-            className="mt-1 accent-stone-900"
+            className="accent-brand-accent-primary mt-1"
             {...register("acceptedPrivacyPolicy")}
           />
+
           <span>
             I acknowledge the{" "}
             <Link className="font-semibold underline" href="/privacy">
@@ -197,38 +209,42 @@ export function RegisterForm() {
             </Link>
             .
             {errors.acceptedPrivacyPolicy?.message ? (
-              <span className="block text-red-600">{errors.acceptedPrivacyPolicy.message}</span>
+              <span className="text-status-red block">{errors.acceptedPrivacyPolicy.message}</span>
             ) : null}
           </span>
         </label>
-        <label className="flex items-start gap-3 text-xs leading-5 text-stone-600">
+
+        <label className="text-typo-primary flex items-start gap-3 text-xs leading-5">
           <input
             type="checkbox"
-            className="mt-1 accent-stone-900"
+            className="accent-brand-accent-primary mt-1"
             {...register("marketingOptIn")}
           />
           <span>I would like to receive occasional product and art updates. (Optional)</span>
         </label>
       </div>
       {serverError ? (
-        <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+        <p role="alert" className="bg-status-error text-status-error rounded-lg p-3 text-sm">
           {serverError}
         </p>
       ) : null}
-      <button
+
+      <CustomButton
         type="submit"
         disabled={submitting}
-        className="w-full rounded-xl bg-stone-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-60"
+        variant="default"
+        className="text-typo-utility w-full px-4 py-3 uppercase disabled:cursor-not-allowed disabled:opacity-60"
       >
         {submitting
           ? "Creating account..."
           : completingGoogleProfile
             ? "Complete account"
             : "Create account"}
-      </button>
-      <p className="text-center text-sm text-stone-500">
+      </CustomButton>
+
+      <p className="text-typo-primary text-center text-sm">
         Already have an account?{" "}
-        <Link href="/sign-in" className="font-semibold text-stone-900 hover:underline">
+        <Link href="/sign-in" className="text-typo-secondary font-semibold hover:underline">
           Sign in
         </Link>
       </p>

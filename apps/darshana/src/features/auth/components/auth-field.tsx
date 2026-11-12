@@ -9,18 +9,24 @@ interface AuthFieldProps extends ComponentPropsWithRef<"input"> {
 export function AuthField({ id, label, error, className, ...props }: AuthFieldProps) {
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="block text-sm font-medium text-stone-700">
+      <label htmlFor={id} className="text-typo-primary block text-sm font-medium">
         {label}
       </label>
+
       <input
         id={id}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-stone-900 transition outline-none placeholder:text-stone-400 focus:border-stone-500 focus:ring-2 focus:ring-stone-200 ${error ? "border-red-400" : "border-stone-200"} ${className ?? ""}`}
+        className={`bg-surface-primary text-typo-primary placeholder:text-typo-primary/60 w-full rounded-sm border px-4 py-3 text-sm transition outline-none focus:ring-0 focus:outline-none ${
+          error
+            ? "border-status-error focus:border-status-error"
+            : "border-brand-pri/40 hover:border-brand-pri focus:border-brand-pri"
+        } ${className ?? ""}`}
         {...props}
       />
+
       {error ? (
-        <p id={`${id}-error`} role="alert" className="text-xs text-red-600">
+        <p id={`${id}-error`} role="alert" className="text-status-error text-xs">
           {error}
         </p>
       ) : null}

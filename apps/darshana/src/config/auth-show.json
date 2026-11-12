@@ -1,0 +1,13 @@
+{
+  "intervalSeconds": 5,
+  "slides": [
+    {
+      "src": "/auth/signin-right.png",
+      "alt": "Hand-painted Indian miniature artwork on handmade paper"
+    },
+    {
+      "src": "/auth/signin-left.png",
+      "alt": "Intricate traditional textile and folk motif craftsmanship"
+    }
+  ]
+}

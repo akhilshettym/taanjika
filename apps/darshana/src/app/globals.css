@@ -13,19 +13,24 @@
 
   /* background colors */
   --bg-background: #fbf5ea;
+  --bg-primary: #741f2b;
+  --bg-secondary: #54232a;
   --bg-surface-primary: #fffcf7;
   --bg-surface-secondary: #f2e5d4;
   --bg-surface-muted: #e7d2b9;
 
   /* typography colors */
-  --typo-primary: #211a17;
-  --typo-secondary: #30251f;
-  --typo-tertiary: #49413b;
-  --typo-muted: #82766a;
+  --typo-primary: #741f2b;
+  --typo-secondary: #54232a;
+  --typo-tertiary: #211a17;
+  --typo-muted: #49413b;
+  --typo-utility: #e7d2b9;
 
   /* border colors */
   --border-primary: #d8c5af;
   --border-secondary: #e5d8c7;
+  --border-brand-pri: #741f2b;
+  --border-brand-sec: #54232a;
 
   /* status colors */
   --status-success: #426746;
@@ -79,6 +84,8 @@
 
   /* Backgrounds */
   --color-background: var(--bg-background);
+  --color-primary: var(--bg-primary);
+  --color-secondary: var(--bg-secondary);
   --color-surface-primary: var(--bg-surface-primary);
   --color-surface-secondary: var(--bg-surface-secondary);
   --color-surface-muted: var(--bg-surface-muted);
@@ -88,10 +95,13 @@
   --color-typo-secondary: var(--typo-secondary);
   --color-typo-tertiary: var(--typo-tertiary);
   --color-typo-muted: var(--typo-muted);
+  --color-typo-utility: var(--typo-utility);
 
   /* Borders */
   --color-border-primary: var(--border-primary);
   --color-border-secondary: var(--border-secondary);
+  --color-border-brand-pri: var(--border-brand-pri);
+  --color-border-brand-sec: var(--border-brand-sec);
 
   /* Status */
   --color-status-success: var(--status-success);
@@ -134,7 +144,7 @@
 
 html {
   min-height: 100%;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   scroll-padding-top: 100px;
 }
 
@@ -191,10 +201,6 @@ b {
 button,
 input,
 textarea,
-select {
-  font: inherit;
-}
-
 button {
   cursor: pointer;
 }
@@ -220,7 +226,7 @@ svg {
 /* accessibility */
 
 :focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: 0px solid var(--color-focus-ring);
   outline-offset: 3px;
 }
 

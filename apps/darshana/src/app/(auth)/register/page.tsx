@@ -11,11 +11,16 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <AuthCard
-      eyebrow="Join Taanjika"
+      variant="register"
+      eyebrow="Experience Taanjika"
       title="Create your account"
       description="Become part of a community celebrating art, culture and craftsmanship."
     >
-      <Suspense fallback={<p className="text-sm text-stone-500">Loading registration form...</p>}>
+      <Suspense
+        fallback={
+          <p className="bg-background text-typo-secondary text-sm">Loading registration form...</p>
+        }
+      >
         <RegisterForm />
       </Suspense>
     </AuthCard>
