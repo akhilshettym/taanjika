@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "id": "art-mad-001",
+  "slug": "madhubani-peacock",
+  "title": "Peacock in Bloom",
+  "artForm": {
+    "name": "Madhubani",
+    "origin": "Mithila, Bihar, India",
+    "slug": "madhubani",
+    "collectionName": "The Madhubani Collection",
+    "href": "/art-forms/madhubani",
+    "allArtFormsHref": "/art-forms"
+  },
+  "ui": {
+    "galleryAriaLabel": "Artwork image gallery",
+    "previousImageLabel": "Previous artwork image",
+    "nextImageLabel": "Next artwork image",
+    "viewFullScreenLabel": "View full screen",
+    "fullscreenGalleryLabel": "Full-screen artwork gallery",
+    "closeFullscreenLabel": "Close full-screen gallery",
+    "detailsHeading": "The details",
+    "reviewsSuffix": "reviews",
+    "frameSelectionHint": "Select a finish to preview it on your artwork.",
+    "currentSelectionPrefix": "Current selection:",
+    "pincodeInputLabel": "Delivery PIN code"
+  },
+  "navigation": {
+    "breadcrumbs": [
+      { "label": "Home", "href": "/" },
+      { "label": "Art forms", "href": "/art-forms" },
+      { "label": "Madhubani", "href": "/art-forms/madhubani" },
+      { "label": "Peacock in Bloom", "href": "/products/madhubani-peacock" }
+    ],
+    "backToArtFormLabel": "Back to Madhubani"
+  },
+  "gallery": {
+    "badge": "Original",
+    "images": [
+      {
+        "id": "front-view",
+        "src": "/images/demo/signin-warli.png",
+        "alt": "Full front view of Peacock in Bloom, a colourful Madhubani artwork",
+        "label": "Front view"
+      },
+      {
+        "id": "peacock-detail",
+        "src": "/images/demo/signin-warli.png",
+        "alt": "Close detail of the peacock motif and hand-drawn lines",
+        "label": "Peacock detail"
+      },
+      {
+        "id": "border-detail",
+        "src": "/images/demo/signin-warli.png",
+        "alt": "Detail of the intricate floral border and natural pigment texture",
+        "label": "Border detail"
+      },
+      {
+        "id": "in-room",
+        "src": "/images/demo/signin-warli.png",
+        "alt": "Peacock in Bloom displayed on a warm-toned interior wall",
+        "label": "In a space"
+      },
+      {
+        "id": "signature-detail",
+        "src": "/images/demo/signin-warli.png",
+        "alt": "Close-up detail of the artist signature on handmade paper",
+        "label": "Artist signature"
+      }
+    ],
+    "thumbnailHint": "5 images · Select a thumbnail to explore every detail.",
+    "trustNote": {
+      "title": "Made by hand. Never mass-produced.",
+      "description": "Subtle variations in colour and detail make each piece unique.",
+      "selectedFrameMessage": "Artwork is shown with the selected {{frameName}} frame."
+    }
+  },
+  "reviews": {
+    "enabled": true,
+    "rating": 4.9,
+    "reviewCount": 18,
+    "accessibleLabel": "Rated 4.9 out of 5 from 18 reviews"
+  },
+  "links": {
+    "shopArtFormLabel": "Shop Madhubani",
+    "allArtFormsLabel": "All art forms"
+  },
+  "actions": {
+    "wishlistLabel": "Add to wishlist",
+    "wishlistActiveLabel": "Saved to wishlist",
+    "shareLabel": "Share",
+    "specSheetLabel": "Spec sheet"
+  },
+  "description": {
+    "title": "A story of timeless devotion",
+    "body": "A peacock unfolds at the heart of this composition, surrounded by an expressive world of leaves, blossoms and delicate folk patterns.\n\nRooted in the visual language of Mithila, the artwork celebrates nature, abundance and the quiet beauty of everyday rituals. Each line is drawn by hand, allowing small variations in rhythm and pigment to remain part of the work."
+  },
+  "details": [
+    { "label": "Art form", "value": "Madhubani / Bharni style" },
+    { "label": "Region", "value": "Mithila, Bihar, India" },
+    { "label": "Artist", "value": "Akhil Shetty" },
+    { "label": "Materials", "value": "Natural pigments on handmade paper" },
+    { "label": "Artwork size", "value": "45 × 40 cm (W × H)" },
+    { "label": "Framed size", "value": "53 × 48 cm (W × H)" },
+    { "label": "Approx. weight", "value": "1.8 kg, including the frame" }
+  ],
+  "artistSignature": {
+    "signed": true,
+    "label": "Signed by the artist"
+  },
+  "purchase": {
+    "badge": "Original artwork",
+    "baseAmount": 18500,
+    "currency": "INR",
+    "taxLabel": "Inclusive of taxes",
+    "includedFrameLabel": "{{frameName}} frame included",
+    "availabilityLabel": "Available · Ready to ship",
+    "addToCartLabel": "Add to cart",
+    "buyNowLabel": "Buy now",
+    "addedToCartMessage": "Peacock in Bloom has been added to your demo cart.",
+    "checkoutHref": "/checkout",
+    "checkoutEventName": "storefront:checkout-requested",
+    "frameSectionTitle": "Make it yours",
+    "selectedFrameLabel": "Your selected frame is previewed on the artwork.",
+    "shippingTitle": "Delivery & shipping"
+  },
+  "frameOptions": [
+    {
+      "id": "synthetic",
+      "name": "Synthetic",
+      "description": "Clean, understated finish",
+      "image": "/images/frames/synthetic-frame.svg",
+      "additionalPrice": 0,
+      "priceCaption": "Included",
+      "preview": {
+        "color": "#e6d8c5",
+        "borderWidth": 14,
+        "shadow": "0 5px 18px rgba(52, 36, 24, 0.16)"
+      }
+    },
+    {
+      "id": "walnut",
+      "name": "Walnut",
+      "description": "Rich, natural wood tone",
+      "image": "/images/frames/walnut-frame.svg",
+      "additionalPrice": 3500,
+      "priceCaption": "+ ₹3,500",
+      "preview": {
+        "color": "#68442f",
+        "borderWidth": 18,
+        "shadow": "0 6px 20px rgba(52, 36, 24, 0.24)"
+      }
+    },
+    {
+      "id": "rosewood",
+      "name": "Rose wood",
+      "description": "Deep reddish-brown finish",
+      "image": "/images/frames/rosewood-frame.svg",
+      "additionalPrice": 4800,
+      "priceCaption": "+ ₹4,800",
+      "preview": {
+        "color": "#8a4c43",
+        "borderWidth": 18,
+        "shadow": "0 6px 20px rgba(52, 36, 24, 0.24)"
+      }
+    }
+  ],
+  "shipping": {
+    "pincodePlaceholder": "Enter 6-digit PIN code",
+    "checkButtonLabel": "Check",
+    "invalidPincodeMessage": "Enter a valid 6-digit PIN code.",
+    "unknownPincodeMessage": "No demo result is configured for this PIN. Connect your delivery serviceability API for a live result.",
+    "dispatchLabel": "Dispatches in 3–5 business days.",
+    "deliveryNote": "Delivery charges and arrival dates depend on your location. Check your PIN for details.",
+    "secureLabel": "Securely packed. Delivered with care.",
+    "pincodeLookup": {
+      "400001": {
+        "serviceable": true,
+        "message": "Delivery is available for this PIN code.",
+        "deliveryWindow": "3–5 business days",
+        "deliveryCharge": 0
+      },
+      "110001": {
+        "serviceable": true,
+        "message": "Delivery is available for this PIN code.",
+        "deliveryWindow": "4–6 business days",
+        "deliveryCharge": 0
+      },
+      "560001": {
+        "serviceable": true,
+        "message": "Delivery is available for this PIN code.",
+        "deliveryWindow": "4–6 business days",
+        "deliveryCharge": 150
+      },
+      "400099": {
+        "serviceable": false,
+        "message": "Delivery is currently unavailable for this demo PIN code."
+      }
+    }
+  },
+  "largerVision": {
+    "title": "Art for a larger vision?",
+    "description": "For bulk orders or a bespoke commission, let's create something meaningful.",
+    "linkLabel": "Enquire about a commission",
+    "href": "/contact?enquiry=commission"
+  }
+}
