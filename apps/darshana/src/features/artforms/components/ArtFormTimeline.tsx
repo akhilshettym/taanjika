@@ -3,220 +3,230 @@
 import { useEffect, useRef, useState } from "react";
 
 interface ArtFormSection {
-    id: string;
-    title: string;
-    description: string;
-    points?: string[];
+  id: string;
+  title: string;
+  description: string;
+  points?: string[];
 }
 
 interface ArtFormTimelineProps {
-    sections: ArtFormSection[];
+  sections: ArtFormSection[];
 }
 
 const MARKER_SIZE = 40;
 const READING_POSITION = 0.45;
 
 export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const chapterRefs = useRef<(HTMLElement | null)[]>([]);
-    const visibleChaptersRef = useRef(new Set<Element>());
-    const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const chapterRefs = useRef<(HTMLElement | null)[]>([]);
+  const visibleChaptersRef = useRef(new Set<Element>());
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    const [timelineGeometry, setTimelineGeometry] = useState({
-        top: MARKER_SIZE / 2,
-        height: 0,
+  const [timelineGeometry, setTimelineGeometry] = useState({
+    top: MARKER_SIZE / 2,
+    height: 0,
+  });
+
+  const [progressHeight, setProgressHeight] = useState(0);
+
+  useEffect(() => {
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visibleChaptersRef.current.add(entry.target);
+          } else {
+            visibleChaptersRef.current.delete(entry.target);
+          }
+        });
+
+        const readingPosition = window.innerHeight * READING_POSITION;
+
+        const visibleChapters = Array.from(visibleChaptersRef.current);
+
+        if (!visibleChapters.length) return;
+
+        const closestChapter = visibleChapters.reduce((closest, current) => {
+          const closestRect = closest.getBoundingClientRect();
+          const currentRect = current.getBoundingClientRect();
+          const closestCenter = closestRect.top + closestRect.height / 2;
+          const currentCenter = currentRect.top + currentRect.height / 2;
+
+          return Math.abs(currentCenter - readingPosition) <
+            Math.abs(closestCenter - readingPosition)
+            ? current
+            : closest;
+        });
+
+        const index = chapterRefs.current.findIndex((chapter) => chapter === closestChapter);
+
+        if (index !== -1) {
+          setActiveIndex(index);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-35% 0px -45% 0px",
+        threshold: 0,
+      },
+    );
+
+    chapterRefs.current.forEach((chapter) => {
+      if (chapter) {
+        observer.observe(chapter);
+      }
     });
 
-    const [progressHeight, setProgressHeight] = useState(0);
+    return () => {
+      observer.disconnect();
+      visibleChaptersRef.current.clear();
+    };
+  }, [sections.length]);
 
-    useEffect(() => {
-        if (!sections.length) return;
+  useEffect(() => {
+    const updateProgress = () => {
+      const container = containerRef.current;
+      const firstChapter = chapterRefs.current[0];
+      const lastChapter = chapterRefs.current[sections.length - 1];
+      const activeChapter = chapterRefs.current[activeIndex];
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        visibleChaptersRef.current.add(entry.target);
-                    } else {
-                        visibleChaptersRef.current.delete(entry.target);
-                    }
-                });
+      if (!container || !firstChapter || !lastChapter || !activeChapter) {
+        return;
+      }
 
-                const readingPosition = window.innerHeight * READING_POSITION;
+      const containerRect = container.getBoundingClientRect();
 
-                const visibleChapters = Array.from(
-                    visibleChaptersRef.current
-                );
+      const getMarkerCenter = (chapter: HTMLElement) => {
+        const rect = chapter.getBoundingClientRect();
 
-                if (!visibleChapters.length) return;
+        return rect.top - containerRect.top + MARKER_SIZE / 2;
+      };
 
-                const closestChapter = visibleChapters.reduce(
-                    (closest, current) => {
-                        const closestRect = closest.getBoundingClientRect();
-                        const currentRect = current.getBoundingClientRect();
-                        const closestCenter = closestRect.top + closestRect.height / 2;
-                        const currentCenter = currentRect.top + currentRect.height / 2;
+      const firstMarkerCenter = getMarkerCenter(firstChapter);
+      const lastMarkerCenter = getMarkerCenter(lastChapter);
+      const activeMarkerCenter = getMarkerCenter(activeChapter);
 
-                        return Math.abs(currentCenter - readingPosition) <
-                            Math.abs(closestCenter - readingPosition)
-                            ? current : closest;
-                    }
-                );
+      setTimelineGeometry({
+        top: firstMarkerCenter,
+        height: Math.max(0, lastMarkerCenter - firstMarkerCenter),
+      });
 
-                const index = chapterRefs.current.findIndex(
-                    (chapter) => chapter === closestChapter
-                );
+      setProgressHeight(Math.max(0, activeMarkerCenter - firstMarkerCenter));
+    };
 
-                if (index !== -1) {
-                    setActiveIndex(index);
-                }
-            },
-            {
-                root: null,
-                rootMargin: "-35% 0px -45% 0px",
-                threshold: 0,
-            }
-        );
+    updateProgress();
 
-        chapterRefs.current.forEach((chapter) => {
-            if (chapter) {
-                observer.observe(chapter);
-            }
-        });
+    const resizeObserver = new ResizeObserver(updateProgress);
 
-        return () => {
-            observer.disconnect();
-            visibleChaptersRef.current.clear();
-        };
-    }, [sections.length]);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
 
-    useEffect(() => {
-        const updateProgress = () => {
-            const container = containerRef.current;
-            const firstChapter = chapterRefs.current[0];
-            const lastChapter = chapterRefs.current[sections.length - 1];
-            const activeChapter = chapterRefs.current[activeIndex];
+    chapterRefs.current.forEach((chapter) => {
+      if (chapter) {
+        resizeObserver.observe(chapter);
+      }
+    });
 
-            if (!container || !firstChapter || !lastChapter || !activeChapter) {
-                return;
-            }
+    window.addEventListener("resize", updateProgress);
 
-            const containerRect = container.getBoundingClientRect();
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, [activeIndex, sections]);
 
-            const getMarkerCenter = (chapter: HTMLElement) => {
-                const rect = chapter.getBoundingClientRect();
+  if (!sections.length) return null;
 
-                return (rect.top - containerRect.top + MARKER_SIZE / 2);
-            };
+  return (
+    <div ref={containerRef} className="relative">
+      <div
+        aria-hidden="true"
+        className="absolute left-[19px] w-px bg-[var(--border-primary)]"
+        style={{
+          top: `${timelineGeometry.top}px`,
+          height: `${timelineGeometry.height}px`,
+        }}
+      />
 
-            const firstMarkerCenter = getMarkerCenter(firstChapter);
-            const lastMarkerCenter = getMarkerCenter(lastChapter);
-            const activeMarkerCenter = getMarkerCenter(activeChapter);
+      <div
+        aria-hidden="true"
+        className="absolute left-[19px] w-px bg-[var(--bg-primary)] transition-[height] duration-700 ease-in-out"
+        style={{
+          top: `${timelineGeometry.top}px`,
+          height: `${progressHeight}px`,
+        }}
+      />
 
-            setTimelineGeometry({
-                top: firstMarkerCenter,
-                height: Math.max(0, lastMarkerCenter - firstMarkerCenter),
-            });
+      <div className="space-y-10 sm:space-y-12">
+        {sections.map((section, index) => {
+          const isActive = activeIndex === index;
 
-            setProgressHeight(
-                Math.max(0, activeMarkerCenter - firstMarkerCenter)
-            );
-        };
+          return (
+            <article
+              key={section.id}
+              ref={(element) => {
+                chapterRefs.current[index] = element;
+              }}
+              className="relative pl-14 sm:pl-20"
+            >
+              <div
+                className={`absolute top-0 left-0 z-10 flex size-10 items-center justify-center rounded-full border text-xs font-semibold tracking-wider transition-all duration-500 ${
+                  isActive
+                    ? "border-[var(--border-brand-pri)] bg-[var(--bg-primary)] text-[var(--bg-surface-primary)] shadow-[var(--bg-primary)]/10 shadow-md"
+                    : "border-[var(--border-primary)] bg-[var(--bg-surface-primary)] text-[var(--typo-muted)]"
+                }`}
+              >
+                {String(index + 1).padStart(2, "0")}
+              </div>
 
-        updateProgress();
+              <div
+                className={`rounded-xl border p-5 transition-all duration-500 sm:p-7 ${
+                  isActive
+                    ? "border-[var(--border-brand-pri)] bg-[var(--bg-surface-secondary)]/70 shadow-sm"
+                    : "border-[var(--border-primary)] bg-[var(--bg-surface-primary)]"
+                }`}
+              >
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <span
+                    className={`text-[10px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 ${
+                      isActive ? "text-[var(--typo-primary)]" : "text-[var(--typo-muted)]"
+                    }`}
+                  >
+                    Chapter {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
 
-        const resizeObserver = new ResizeObserver(updateProgress);
+                <h3
+                  className={`text-xl leading-snug font-medium transition-colors duration-300 sm:text-2xl ${isActive ? "text-[var(--typo-primary)]" : "text-[var(--typo-secondary)]"}`}
+                >
+                  {section.title}
+                </h3>
 
-        if (containerRef.current) {
-            resizeObserver.observe(containerRef.current);
-        }
+                <p className="max-w-7xl pt-2 text-sm leading-6 text-[var(--typo-muted)]">
+                  {section.description}
+                </p>
 
-        chapterRefs.current.forEach((chapter) => {
-            if (chapter) {
-                resizeObserver.observe(chapter);
-            }
-        });
-
-        window.addEventListener("resize", updateProgress);
-
-        return () => {
-            resizeObserver.disconnect();
-            window.removeEventListener("resize", updateProgress);
-        };
-    }, [activeIndex, sections]);
-
-    if (!sections.length) return null;
-
-    return (
-        <div ref={containerRef} className="relative">
-
-            <div aria-hidden="true" className="absolute left-[19px] w-px bg-[var(--border-primary)]"
-                style={{
-                    top: `${timelineGeometry.top}px`,
-                    height: `${timelineGeometry.height}px`,
-                }} />
-
-            <div aria-hidden="true" className="absolute left-[19px] w-px bg-[var(--bg-primary)] transition-[height] duration-700 ease-in-out"
-                style={{
-                    top: `${timelineGeometry.top}px`,
-                    height: `${progressHeight}px`,
-                }} />
-
-            <div className="space-y-10 sm:space-y-12">
-                {sections.map((section, index) => {
-                    const isActive = activeIndex === index;
-
-                    return (
-                        <article key={section.id}
-                            ref={(element) => {
-                                chapterRefs.current[index] = element;
-                            }} className="relative pl-14 sm:pl-20">
-
-                            <div className={`absolute left-0 top-0 z-10 flex size-10 items-center justify-center rounded-full border text-xs font-semibold tracking-wider transition-all duration-500
-                                   ${isActive
-                                    ? "border-[var(--border-brand-pri)] bg-[var(--bg-primary)] text-[var(--bg-surface-primary)] shadow-md shadow-[var(--bg-primary)]/10"
-                                    : "border-[var(--border-primary)] bg-[var(--bg-surface-primary)] text-[var(--typo-muted)]"
-                                }`}>
-                                {String(index + 1).padStart(2, "0")}
-                            </div>
-
-                            <div className={`rounded-xl border p-5 transition-all duration-500 sm:p-7
-                                   ${isActive
-                                    ? "border-[var(--border-brand-pri)] bg-[var(--bg-surface-secondary)]/70 shadow-sm"
-                                    : "border-[var(--border-primary)] bg-[var(--bg-surface-primary)]"
-                                }`}>
-
-                                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                                    <span className={`text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300
-                                           ${isActive ? "text-[var(--typo-primary)]" : "text-[var(--typo-muted)]"
-                                        }`}>
-                                        Chapter {String(index + 1).padStart(2, "0")}
-                                    </span>
-                                </div>
-
-                                <h3 className={`text-xl font-medium leading-snug transition-colors duration-300 sm:text-2xl ${isActive ? "text-[var(--typo-primary)]" : "text-[var(--typo-secondary)]"}`}>
-                                    {section.title}
-                                </h3>
-
-                                <p className="pt-2 max-w-7xl text-sm leading-6 text-[var(--typo-muted)]">
-                                    {section.description}
-                                </p>
-
-                                {section.points && section.points.length > 0 && (
-                                    <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-                                        {section.points.map((point) => (
-                                            <li key={point} className="flex items-start gap-3 text-sm leading-5 text-[var(--typo-secondary)]">
-                                                <span className="mt-[10px] size-1.5 shrink-0 rounded-full bg-[var(--bg-primary)]" />
-                                                <span>{point}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        </article>
-                    );
-                })}
-            </div>
-        </div>
-    );
+                {section.points && section.points.length > 0 && (
+                  <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+                    {section.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex items-start gap-3 text-sm leading-5 text-[var(--typo-secondary)]"
+                      >
+                        <span className="mt-[10px] size-1.5 shrink-0 rounded-full bg-[var(--bg-primary)]" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  );
 }

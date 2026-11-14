@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 
 import ArtForms from "@/features/artforms/ArtForms";
