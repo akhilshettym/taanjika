@@ -113,7 +113,7 @@ export function AuthCard({
               </div>
             ) : (
               <div className="space-y-5">
-                <div className="border-brand-pri/15 bg-background/60 grid grid-cols-3 divide-x divide-[var(--brand-primary)]/15 border">
+                <div className="border-brand-pri/15 bg-background/60 grid grid-cols-3 divide-x divide-(--brand-primary)/15 border">
                   {REGISTER_PILLARS.map((pillar) => (
                     <div key={pillar.label} className="px-3 py-3 text-center">
                       <p className="text-typo-primary text-xs font-bold tracking-wide uppercase">

@@ -1,26 +1,15 @@
 import eslint from "@eslint/js";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig([
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
-  {
-    ignores: ["dist", "node_modules", "coverage", ".eslintrc.js"],
-  },
+  globalIgnores(["dist/**", "node_modules/**", "coverage/**"]),
   {
     files: ["**/*.ts"],
-    languageOptions: {
-      parserOptions: {
-        project: "tsconfig.json",
-        tsconfigRootDir: import.meta.dirname,
-        sourceType: "module",
-      },
-    },
     rules: {
-      "@typescript-eslint/interface-name-prefix": "off",
-      "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
     },
   },
-);
+]);

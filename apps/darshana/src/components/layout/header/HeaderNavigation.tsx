@@ -70,7 +70,7 @@ export function HeaderNavigation({ isMobileMenuOpen, onNavigate }: HeaderNavigat
                       aria-expanded={isOpen}
                       aria-haspopup="true"
                       onClick={() => handleToggleDropdown(item.label)}
-                      className="!text-typo-tertiary flex min-h-12 w-full appearance-none items-center justify-between gap-2 border-0 bg-transparent px-4 py-3 !font-sans [font-family:inherit] !text-sm !leading-none !font-semibold !tracking-wider whitespace-nowrap !uppercase [text-transform:uppercase!important] [font-style:normal] transition-colors duration-200 [font-variant:normal] hover:opacity-75 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none lg:w-auto lg:justify-center"
+                      className="text-typo-tertiary! flex min-h-12 w-full appearance-none items-center justify-between gap-2 border-0 bg-transparent px-4 py-3 font-[inherit] text-sm! leading-none! font-semibold! tracking-wider! whitespace-nowrap [text-transform:uppercase!important] not-italic transition-colors duration-200 [font-variant:normal] hover:opacity-75 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none lg:w-auto lg:justify-center"
                     >
                       {item.label}
 
@@ -92,7 +92,7 @@ export function HeaderNavigation({ isMobileMenuOpen, onNavigate }: HeaderNavigat
                               href={child.href}
                               role="menuitem"
                               onClick={handleLinkClick}
-                              className="!text-typo-tertiary block w-full rounded-lg px-4 py-3 text-center !font-sans [font-family:inherit] !text-xs !leading-normal !font-medium !tracking-normal !uppercase [text-transform:uppercase!important] transition-colors duration-200 hover:bg-black/5 hover:text-black focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none"
+                              className="text-typo-tertiary! block w-full rounded-lg px-4 py-3 text-center font-[inherit] text-xs! leading-normal! font-medium! tracking-normal! uppercase! transition-colors duration-200 hover:bg-black/5 hover:text-black focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none"
                             >
                               {child.label}
                             </Link>
@@ -105,7 +105,7 @@ export function HeaderNavigation({ isMobileMenuOpen, onNavigate }: HeaderNavigat
                   <Link
                     href={item.href}
                     onClick={handleLinkClick}
-                    className="!text-typo-tertiary flex min-h-12 items-center px-4 py-3 !font-sans [font-family:inherit] !text-sm !leading-none !font-semibold !tracking-wider whitespace-nowrap !uppercase [text-transform:uppercase!important] [font-style:normal] transition-colors duration-200 [font-variant:normal] hover:opacity-75 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none"
+                    className="text-typo-tertiary! flex min-h-12 items-center px-4 py-3 font-sans! text-sm! leading-none! font-semibold! tracking-wider! whitespace-nowrap uppercase! not-italic transition-colors duration-200 [font-variant:normal] hover:opacity-75 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none"
                   >
                     {item.label}
                   </Link>

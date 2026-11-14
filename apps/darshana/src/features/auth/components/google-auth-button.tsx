@@ -61,7 +61,7 @@ export function GoogleAuthButton() {
           alt="Continue with google"
           width={16}
           height={16}
-          className="h-[18px] w-[18px] shrink-0 object-contain"
+          className="h-4.5 w-4.5 shrink-0 object-contain"
           aria-hidden="true"
         />
         {loading ? "Connecting..." : "Continue with Google"}
