@@ -29,33 +29,30 @@ export default function ProductDetailsPage({ product }: ProductDetailsPageProps)
   const notify = (message: string) => setNotice(message);
 
   return (
-    <main className="min-h-screen bg-[var(--bg-background)] text-[var(--typo-primary)]">
+    <main className="bg-background text-typo-primary min-h-screen">
       <div className="mx-auto w-full max-w-[1760px] px-4 pt-5 pb-16 sm:px-6 sm:pt-7 lg:px-8 2xl:px-10">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-b border-[var(--border-secondary)] pb-4 sm:mb-8 sm:pb-5">
+        <div className="border-border-secondary mb-6 flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-b pb-4 sm:mb-8 sm:pb-5">
           <nav aria-label="Breadcrumb" className="min-w-0">
-            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-[var(--typo-muted)] sm:text-xs">
+            <ol className="text-typo-muted flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] sm:text-xs">
               {product.navigation.breadcrumbs.map((item, index) => {
                 const isCurrent = index === product.navigation.breadcrumbs.length - 1;
 
                 return (
                   <li key={`${item.href}-${item.label}`} className="flex items-center gap-2">
                     {index > 0 && (
-                      <span aria-hidden="true" className="text-[var(--border-primary)]">
+                      <span aria-hidden="true" className="text-border-primary">
                         /
                       </span>
                     )}
                     {isCurrent ? (
                       <span
                         aria-current="page"
-                        className="max-w-[150px] truncate font-medium text-[var(--typo-primary)] sm:max-w-none"
+                        className="text-typo-primary max-w-37.5 truncate font-medium sm:max-w-none"
                       >
                         {item.label}
                       </span>
                     ) : (
-                      <Link
-                        href={item.href}
-                        className="transition hover:text-[var(--typo-primary)]"
-                      >
+                      <Link href={item.href} className="hover:text-typo-primary transition">
                         {item.label}
                       </Link>
                     )}
@@ -67,7 +64,7 @@ export default function ProductDetailsPage({ product }: ProductDetailsPageProps)
 
           <Link
             href={product.artForm.href}
-            className="inline-flex shrink-0 items-center gap-2 text-[10px] font-semibold tracking-[0.1em] text-[var(--typo-primary)] uppercase transition hover:opacity-65 sm:text-xs"
+            className="text-typo-primary inline-flex shrink-0 items-center gap-2 text-[10px] font-semibold tracking-widest uppercase transition hover:opacity-65 sm:text-xs"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             {product.navigation.backToArtFormLabel}
@@ -90,7 +87,7 @@ export default function ProductDetailsPage({ product }: ProductDetailsPageProps)
         <div
           role="status"
           aria-live="polite"
-          className="fixed bottom-4 left-1/2 z-[110] flex w-[calc(100%-2rem)] max-w-md -translate-x-1/2 items-start justify-between gap-4 rounded-xl border border-[var(--border-primary)] bg-[var(--bg-surface-primary)] px-4 py-3 text-xs text-[var(--typo-primary)] shadow-[0_12px_35px_rgba(33,26,23,0.16)]"
+          className="border-border-primary bg-surface-primary text-typo-primary fixed bottom-4 left-1/2 z-110 flex w-[calc(100%-2rem)] max-w-md -translate-x-1/2 items-start justify-between gap-4 rounded-xl border px-4 py-3 text-xs shadow-[0_12px_35px_rgba(33,26,23,0.16)]"
         >
           <span className="leading-relaxed">{notice}</span>
 
@@ -98,7 +95,7 @@ export default function ProductDetailsPage({ product }: ProductDetailsPageProps)
             type="button"
             aria-label="Dismiss notification"
             onClick={() => setNotice("")}
-            className="shrink-0 rounded-full p-1 text-[var(--typo-muted)] transition hover:bg-[var(--bg-surface-secondary)]"
+            className="text-typo-muted hover:bg-surface-secondary shrink-0 rounded-full p-1 transition"
           >
             <X size={15} aria-hidden="true" />
           </button>

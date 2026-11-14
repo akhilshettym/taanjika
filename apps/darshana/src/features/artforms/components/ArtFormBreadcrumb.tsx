@@ -18,40 +18,40 @@ export default function ArtFormBreadcrumb({
   const ctaLabel = isArtFormDetailPage ? shopLabel : "Shop by Art Forms";
 
   return (
-    <div className="flex flex-col gap-4 border-b border-[var(--border-primary)] py-5 sm:flex-row sm:items-center sm:justify-between">
+    <div className="border-border-primary flex flex-col gap-4 border-b py-5 sm:flex-row sm:items-center sm:justify-between">
       <nav
         aria-label="Breadcrumb"
-        className="flex min-w-0 flex-wrap items-center gap-2 text-xs text-[var(--typo-muted)]"
+        className="text-typo-muted flex min-w-0 flex-wrap items-center gap-2 text-xs"
       >
-        <Link href="/" className="transition-colors hover:text-[var(--typo-primary)]">
-                  Home
+        <Link href="/" className="hover:text-typo-primary transition-colors">
+          Home
         </Link>
 
-               <ChevronRight size={13} />
+        <ChevronRight size={13} />
 
-{isArtFormDetailPage ? (
+        {isArtFormDetailPage ? (
           <>
-            <Link href="/art-forms" className="transition-colors hover:text-[var(--typo-primary)]">
+            <Link href="/art-forms" className="hover:text-typo-primary transition-colors">
               Art Forms
             </Link>
 
             <ChevronRight size={13} />
 
-            <span aria-current="page" className="font-medium text-[var(--typo-primary)]">
+            <span aria-current="page" className="text-typo-primary font-medium">
               {artFormName}
             </span>
           </>
         ) : (
-          <span aria-current="page" className="font-medium text-[var(--typo-primary)]">
+          <span aria-current="page" className="text-typo-primary font-medium">
             Art Forms
           </span>
         )}
       </nav>
 
-               {ctaHref && ctaLabel && (
+      {ctaHref && ctaLabel && (
         <Link
           href={ctaHref}
-          className="inline-flex w-fit items-center gap-2 text-xs font-medium text-[var(--typo-primary)] uppercase transition-colors hover:text-[var(--typo-secondary)]"
+          className="text-typo-primary hover:text-typo-secondary inline-flex w-fit items-center gap-2 text-xs font-medium uppercase transition-colors"
         >
           {ctaLabel}
           <span aria-hidden="true">

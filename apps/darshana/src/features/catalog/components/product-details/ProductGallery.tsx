@@ -47,8 +47,8 @@ export default function ProductGallery({ product, selectedFrame }: ProductGaller
 
   return (
     <section aria-label={product.ui.galleryAriaLabel} className="min-w-0">
-      <div className="relative overflow-hidden rounded-2xl border border-[var(--border-secondary)] bg-[var(--bg-surface-primary)] p-3 sm:p-5">
-        <span className="absolute top-5 left-5 z-10 inline-flex items-center rounded-full bg-[var(--bg-primary)] px-3 py-1.5 text-[10px] font-semibold tracking-[0.18em] text-white uppercase sm:top-7 sm:left-7">
+      <div className="border-border-secondary bg-surface-primary relative overflow-hidden rounded-2xl border p-3 sm:p-5">
+        <span className="bg-primary absolute top-5 left-5 z-10 inline-flex items-center rounded-full px-3 py-1.5 text-[10px] font-semibold tracking-[0.18em] text-white uppercase sm:top-7 sm:left-7">
           {product.gallery.badge}
         </span>
 
@@ -56,14 +56,14 @@ export default function ProductGallery({ product, selectedFrame }: ProductGaller
           type="button"
           aria-label={product.ui.previousImageLabel}
           onClick={() => goTo(activeIndex - 1)}
-          className="absolute top-1/2 left-3 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border border-[var(--border-primary)] bg-[var(--bg-surface-primary)]/95 text-[var(--typo-primary)] shadow-sm transition hover:bg-[var(--bg-surface-secondary)] sm:left-5 sm:h-10 sm:w-10"
+          className="border-border-primary text-typo-primary hover:bg-surface-secondary absolute top-1/2 left-3 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border bg-(--bg-surface-primary)/95 shadow-sm transition sm:left-5 sm:h-10 sm:w-10"
         >
           <ChevronLeft size={19} aria-hidden="true" />
         </button>
 
-        <div className="flex aspect-[0.92/1] min-h-[320px] items-center justify-center overflow-hidden px-9 py-12 sm:min-h-[440px] sm:px-12 sm:py-14">
+        <div className="flex aspect-[0.92/1] min-h-80 items-center justify-center overflow-hidden px-9 py-12 sm:min-h-110 sm:px-12 sm:py-14">
           <div
-            className="relative h-full max-h-[580px] w-full max-w-[82%] p-2 sm:p-3"
+            className="relative h-full max-h-145 w-full max-w-[82%] p-2 sm:p-3"
             style={{
               border: `${selectedFrame.preview.borderWidth}px solid ${selectedFrame.preview.color}`,
               boxShadow: selectedFrame.preview.shadow,
@@ -88,19 +88,19 @@ export default function ProductGallery({ product, selectedFrame }: ProductGaller
           type="button"
           aria-label={product.ui.nextImageLabel}
           onClick={() => goTo(activeIndex + 1)}
-          className="absolute top-1/2 right-3 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border border-[var(--border-primary)] bg-[var(--bg-surface-primary)]/95 text-[var(--typo-primary)] shadow-sm transition hover:bg-[var(--bg-surface-secondary)] sm:right-5 sm:h-10 sm:w-10"
+          className="border-border-primary text-typo-primary hover:bg-surface-secondary absolute top-1/2 right-3 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border bg-(--bg-surface-primary)/95 shadow-sm transition sm:right-5 sm:h-10 sm:w-10"
         >
           <ChevronRight size={19} aria-hidden="true" />
         </button>
 
-        <div className="flex items-center justify-between gap-3 border-t border-[var(--border-secondary)] px-1 pt-3 text-xs text-[var(--typo-muted)] sm:px-2 sm:pt-4 sm:text-sm">
+        <div className="border-border-secondary text-typo-muted flex items-center justify-between gap-3 border-t px-1 pt-3 text-xs sm:px-2 sm:pt-4 sm:text-sm">
           <span className="tabular-nums">
             {activeIndex + 1} / {images.length}
           </span>
           <button
             type="button"
             onClick={() => setIsFullscreenOpen(true)}
-            className="inline-flex items-center gap-2 font-medium text-[var(--typo-primary)] transition hover:opacity-70"
+            className="text-typo-primary inline-flex items-center gap-2 font-medium transition hover:opacity-70"
           >
             <Maximize2 size={15} aria-hidden="true" />
             {product.ui.viewFullScreenLabel}
@@ -118,7 +118,7 @@ export default function ProductGallery({ product, selectedFrame }: ProductGaller
               aria-label={`View ${image.label}`}
               aria-pressed={isActive}
               onClick={() => setActiveIndex(index)}
-              className={`relative aspect-square overflow-hidden rounded-lg border bg-[var(--bg-surface-primary)] p-1 transition sm:rounded-xl sm:p-1.5 ${isActive ? "border-2 border-[var(--border-brand-pri)] shadow-sm" : "border-[var(--border-secondary)] hover:border-[var(--border-primary)]"}`}
+              className={`bg-surface-primary relative aspect-square overflow-hidden rounded-lg border p-1 transition sm:rounded-xl sm:p-1.5 ${isActive ? "border-border-brand-pri border-2 shadow-sm" : "border-border-secondary hover:border-border-primary"}`}
             >
               <Image
                 src={image.src}
@@ -133,19 +133,19 @@ export default function ProductGallery({ product, selectedFrame }: ProductGaller
         })}
       </div>
 
-      <p className="mt-3 text-center text-xs tracking-wide text-[var(--typo-muted)] sm:text-sm">
+      <p className="text-typo-muted mt-3 text-center text-xs tracking-wide sm:text-sm">
         {product.gallery.thumbnailHint}
       </p>
 
-      <div className="mt-5 flex gap-3 rounded-xl border border-[var(--border-secondary)] bg-[var(--bg-surface-secondary)]/70 p-4 sm:mt-6 sm:p-5">
-        <div className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--bg-surface-primary)] text-[var(--typo-primary)]">
+      <div className="border-border-secondary mt-5 flex gap-3 rounded-xl border bg-(--bg-surface-secondary)/70 p-4 sm:mt-6 sm:p-5">
+        <div className="bg-surface-primary text-typo-primary mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full">
           <ShieldCheck size={19} aria-hidden="true" />
         </div>
         <div className="min-w-0">
-          <h2 className="text-sm font-semibold text-[var(--typo-primary)] sm:text-base">
+          <h2 className="text-typo-primary text-sm font-semibold sm:text-base">
             {product.gallery.trustNote.title}
           </h2>
-          <p className="mt-1 text-xs leading-relaxed text-[var(--typo-muted)] sm:text-sm">
+          <p className="text-typo-muted mt-1 text-xs leading-relaxed sm:text-sm">
             {product.gallery.trustNote.description} {selectedFrameMessage}
           </p>
         </div>
@@ -156,7 +156,7 @@ export default function ProductGallery({ product, selectedFrame }: ProductGaller
           role="dialog"
           aria-modal="true"
           aria-label={product.ui.fullscreenGalleryLabel}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#211a17]/95 p-4 sm:p-8"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-[#211a17]/95 p-4 sm:p-8"
         >
           <button
             type="button"

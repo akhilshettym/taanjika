@@ -51,7 +51,7 @@ export function AuthShowcaseCarousel() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="border-brand-pri bg-brand-accent-primary relative aspect-[16/10] w-full rounded-md border-2 p-2 sm:p-3">
+      <div className="border-brand-pri bg-brand-accent-primary relative aspect-16/10 w-full rounded-md border-2 p-2 sm:p-3">
         <div className="relative h-full w-full overflow-hidden rounded-sm">
           {slides.map((slide, index) => {
             const isActive = index === currentIndex;
@@ -80,7 +80,7 @@ export function AuthShowcaseCarousel() {
               type="button"
               onClick={goToPrev}
               aria-label="Previous artwork"
-              className="bg-background text-typo-primary hover:text-typo-utility absolute top-1/2 left-5 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full shadow-sm transition hover:bg-[var(--brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)]"
+              className="bg-background text-typo-primary hover:text-typo-utility hover:bg-brand-primary focus-visible:ring-brand-primary absolute top-1/2 left-5 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full shadow-sm transition focus:outline-none focus-visible:ring-2"
             >
               <ChevronLeft
                 size={18}
@@ -94,7 +94,7 @@ export function AuthShowcaseCarousel() {
               type="button"
               onClick={goToNext}
               aria-label="Next artwork"
-              className="bg-background text-typo-primary hover:bg-primary hover:text-typo-utility absolute top-1/2 right-5 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)]"
+              className="bg-background text-typo-primary hover:bg-primary hover:text-typo-utility focus-visible:ring-brand-primary absolute top-1/2 right-5 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full shadow-sm transition focus:outline-none focus-visible:ring-2"
             >
               <ChevronRight
                 size={18}

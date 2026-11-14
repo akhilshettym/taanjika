@@ -19,7 +19,6 @@ const READING_POSITION = 0.45;
 export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chapterRefs = useRef<(HTMLElement | null)[]>([]);
-  const visibleChaptersRef = useRef(new Set<Element>());
   const [activeIndex, setActiveIndex] = useState(0);
 
   const [timelineGeometry, setTimelineGeometry] = useState({
@@ -32,19 +31,21 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
   useEffect(() => {
     if (!sections.length) return;
 
+    const visibleChaptersSet = new Set<Element>();
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            visibleChaptersRef.current.add(entry.target);
+            visibleChaptersSet.add(entry.target);
           } else {
-            visibleChaptersRef.current.delete(entry.target);
+            visibleChaptersSet.delete(entry.target);
           }
         });
 
         const readingPosition = window.innerHeight * READING_POSITION;
 
-        const visibleChapters = Array.from(visibleChaptersRef.current);
+        const visibleChapters = Array.from(visibleChaptersSet);
 
         if (!visibleChapters.length) return;
 
@@ -81,7 +82,7 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
 
     return () => {
       observer.disconnect();
-      visibleChaptersRef.current.clear();
+      visibleChaptersSet.clear();
     };
   }, [sections.length]);
 
@@ -144,7 +145,7 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
     <div ref={containerRef} className="relative">
       <div
         aria-hidden="true"
-        className="absolute left-[19px] w-px bg-[var(--border-primary)]"
+        className="bg-border-primary absolute left-4.75 w-px"
         style={{
           top: `${timelineGeometry.top}px`,
           height: `${timelineGeometry.height}px`,
@@ -153,7 +154,7 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
 
       <div
         aria-hidden="true"
-        className="absolute left-[19px] w-px bg-[var(--bg-primary)] transition-[height] duration-700 ease-in-out"
+        className="bg-primary absolute left-4.75 w-px transition-[height] duration-700 ease-in-out"
         style={{
           top: `${timelineGeometry.top}px`,
           height: `${progressHeight}px`,
@@ -175,8 +176,8 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
               <div
                 className={`absolute top-0 left-0 z-10 flex size-10 items-center justify-center rounded-full border text-xs font-semibold tracking-wider transition-all duration-500 ${
                   isActive
-                    ? "border-[var(--border-brand-pri)] bg-[var(--bg-primary)] text-[var(--bg-surface-primary)] shadow-[var(--bg-primary)]/10 shadow-md"
-                    : "border-[var(--border-primary)] bg-[var(--bg-surface-primary)] text-[var(--typo-muted)]"
+                    ? "border-border-brand-pri bg-primary text-surface-primary shadow-(--bg-primary)/10 shadow-md"
+                    : "border-border-primary bg-surface-primary text-typo-muted"
                 }`}
               >
                 {String(index + 1).padStart(2, "0")}
@@ -185,14 +186,14 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
               <div
                 className={`rounded-xl border p-5 transition-all duration-500 sm:p-7 ${
                   isActive
-                    ? "border-[var(--border-brand-pri)] bg-[var(--bg-surface-secondary)]/70 shadow-sm"
-                    : "border-[var(--border-primary)] bg-[var(--bg-surface-primary)]"
+                    ? "border-border-brand-pri bg-(--bg-surface-secondary)/70 shadow-sm"
+                    : "border-border-primary bg-surface-primary"
                 }`}
               >
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <span
                     className={`text-[10px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 ${
-                      isActive ? "text-[var(--typo-primary)]" : "text-[var(--typo-muted)]"
+                      isActive ? "text-typo-primary" : "text-typo-muted"
                     }`}
                   >
                     Chapter {String(index + 1).padStart(2, "0")}
@@ -200,12 +201,12 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
                 </div>
 
                 <h3
-                  className={`text-xl leading-snug font-medium transition-colors duration-300 sm:text-2xl ${isActive ? "text-[var(--typo-primary)]" : "text-[var(--typo-secondary)]"}`}
+                  className={`text-xl leading-snug font-medium transition-colors duration-300 sm:text-2xl ${isActive ? "text-typo-primary" : "text-typo-secondary"}`}
                 >
                   {section.title}
                 </h3>
 
-                <p className="max-w-7xl pt-2 text-sm leading-6 text-[var(--typo-muted)]">
+                <p className="text-typo-muted max-w-7xl pt-2 text-sm leading-6">
                   {section.description}
                 </p>
 
@@ -214,9 +215,9 @@ export default function ArtFormTimeline({ sections }: ArtFormTimelineProps) {
                     {section.points.map((point) => (
                       <li
                         key={point}
-                        className="flex items-start gap-3 text-sm leading-5 text-[var(--typo-secondary)]"
+                        className="text-typo-secondary flex items-start gap-3 text-sm leading-5"
                       >
-                        <span className="mt-[10px] size-1.5 shrink-0 rounded-full bg-[var(--bg-primary)]" />
+                        <span className="bg-primary mt-2.5 size-1.5 shrink-0 rounded-full" />
                         <span>{point}</span>
                       </li>
                     ))}

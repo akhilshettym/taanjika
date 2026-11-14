@@ -16,7 +16,7 @@ export default function ArtFormCard({ artForm, priority = false }: ArtFormCardPr
         className="block"
         aria-label={`Explore ${artForm.name} art`}
       >
-        <div className="border-primary relative aspect-[4/4] overflow-hidden rounded-md border-2 bg-[var(--bg-surface-secondary)]">
+        <div className="border-primary bg-surface-secondary relative aspect-4/4 overflow-hidden rounded-md border-2">
           <Image
             src={artForm.images.cover}
             alt={artForm.images.alt}
@@ -26,15 +26,15 @@ export default function ArtFormCard({ artForm, priority = false }: ArtFormCardPr
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-70" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-70" />
 
-          <span className="absolute right-4 bottom-4 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg-surface-primary)] text-[var(--typo-primary)] transition-all duration-300 group-hover:bg-[var(--bg-primary)] group-hover:text-white">
+          <span className="bg-surface-primary text-typo-primary group-hover:bg-primary absolute right-4 bottom-4 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:text-white">
             <ArrowUpRight size={19} strokeWidth={1.5} />
           </span>
         </div>
 
         <div className="pt-5">
-          <div className="mb-3 flex items-center gap-2 text-xs tracking-wide text-[var(--typo-muted)]">
+          <div className="text-typo-muted mb-3 flex items-center gap-2 text-xs tracking-wide">
             <MapPinned size={13} strokeWidth={1.5} />
 
             <span>
@@ -43,16 +43,16 @@ export default function ArtFormCard({ artForm, priority = false }: ArtFormCardPr
           </div>
 
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-2xl font-medium tracking-tight text-[var(--typo-primary)] uppercase transition-colors duration-300 group-hover:text-[var(--typo-secondary)]">
+            <h2 className="text-typo-primary group-hover:text-typo-secondary text-2xl font-medium tracking-tight uppercase transition-colors duration-300">
               {artForm.name}
             </h2>
 
-            <span className="shrink-0 text-xs tracking-[0.12em] text-[var(--typo-muted)] uppercase">
+            <span className="text-typo-muted shrink-0 text-xs tracking-[0.12em] uppercase">
               Explore
             </span>
           </div>
 
-          <p className="max-w-lg pt-3 text-justify text-sm leading-5 text-[var(--typo-muted)]">
+          <p className="text-typo-muted max-w-lg pt-3 text-justify text-sm leading-5">
             {artForm.shortDescription}
           </p>
         </div>

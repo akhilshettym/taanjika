@@ -7,6 +7,7 @@
     "node": ">=26.0.0 <27"
   },
   "scripts": {
+    "prepare": "husky",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev": "pnpm --parallel --filter @taanjika/darshana --filter @taanjika/moola dev",
@@ -16,10 +17,16 @@
     "lint": "pnpm --filter @taanjika/darshana lint && pnpm --filter @taanjika/moola lint",
     "test": "pnpm --filter @taanjika/darshana --if-present test && pnpm --filter @taanjika/moola --if-present test",
     "typecheck": "pnpm --filter @taanjika/darshana typecheck && pnpm --filter @taanjika/moola typecheck",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
+    "audit": "pnpm audit --prod --audit-level=high --ignore-registry-errors",
+    "ci": "pnpm check && pnpm build",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose stop postgres"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "husky": "^9.1.7",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1"
   }

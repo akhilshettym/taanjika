@@ -99,23 +99,23 @@ export default function PurchasePanel({
 
   return (
     <aside className="min-w-0">
-      <div className="rounded-2xl border border-[var(--border-primary)] bg-[var(--bg-surface-primary)] p-4 shadow-[0_12px_35px_rgba(84,35,42,0.06)] sm:p-5 2xl:p-5">
-        <span className="inline-flex rounded-full bg-[var(--bg-surface-secondary)] px-3 py-1.5 text-[9px] font-bold tracking-[0.17em] text-[var(--typo-primary)] uppercase">
+      <div className="border-border-primary bg-surface-primary rounded-2xl border p-4 shadow-[0_12px_35px_rgba(84,35,42,0.06)] sm:p-5 2xl:p-5">
+        <span className="bg-surface-secondary text-typo-primary inline-flex rounded-full px-3 py-1.5 text-[9px] font-bold tracking-[0.17em] uppercase">
           {product.purchase.badge}
         </span>
 
         <div className="mt-4">
-          <p className="font-serif text-3xl leading-none text-[var(--typo-primary)] sm:text-[2rem]">
+          <p className="text-typo-primary font-serif text-3xl leading-none sm:text-[2rem]">
             {formatCurrency(totalPrice, product.purchase.currency)}
           </p>
 
-          <p className="mt-2 text-[11px] leading-relaxed text-[var(--typo-muted)]">
+          <p className="text-typo-muted mt-2 text-[11px] leading-relaxed">
             {product.purchase.taxLabel} <span className="mx-1">·</span>{" "}
             {product.purchase.includedFrameLabel.replace("{{frameName}}", selectedFrame.name)}
           </p>
         </div>
 
-        <div className="mt-4 flex items-center gap-2 border-y border-[var(--border-secondary)] py-3 text-xs font-medium text-[var(--typo-secondary)]">
+        <div className="border-border-secondary text-typo-secondary mt-4 flex items-center gap-2 border-y py-3 text-xs font-medium">
           <span className="h-2 w-2 rounded-full bg-[#628363]" aria-hidden="true" />
           {product.purchase.availabilityLabel}
         </div>
@@ -124,7 +124,7 @@ export default function PurchasePanel({
           <button
             type="button"
             onClick={handleAddToCart}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--bg-primary)] px-4 py-3 text-xs font-semibold tracking-[0.12em] text-white uppercase transition hover:bg-[var(--bg-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-brand-pri)]"
+            className="bg-primary hover:bg-secondary focus-visible:outline-border-brand-pri inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-4 py-3 text-xs font-semibold tracking-[0.12em] text-white uppercase transition focus-visible:outline focus-visible:outline-offset-2"
           >
             <ShoppingBag size={16} aria-hidden="true" />
             {product.purchase.addToCartLabel}
@@ -133,17 +133,17 @@ export default function PurchasePanel({
           <button
             type="button"
             onClick={handleBuyNow}
-            className="min-h-12 rounded-full border border-[var(--border-brand-pri)] bg-transparent px-4 py-3 text-xs font-semibold tracking-[0.12em] text-[var(--typo-primary)] uppercase transition hover:bg-[var(--bg-surface-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-brand-pri)]"
+            className="border-border-brand-pri text-typo-primary hover:bg-surface-secondary focus-visible:outline-border-brand-pri min-h-12 rounded-full border bg-transparent px-4 py-3 text-xs font-semibold tracking-[0.12em] uppercase transition focus-visible:outline focus-visible:outline-offset-2"
           >
             {product.purchase.buyNowLabel}
           </button>
         </div>
 
-        <div className="mt-6 border-t border-[var(--border-secondary)] pt-5">
-          <h2 className="font-serif text-xl text-[var(--typo-primary)]">
+        <div className="border-border-secondary mt-6 border-t pt-5">
+          <h2 className="text-typo-primary font-serif text-xl">
             {product.purchase.frameSectionTitle}
           </h2>
-          <p className="mt-1 text-[11px] leading-relaxed text-[var(--typo-muted)]">
+          <p className="text-typo-muted mt-1 text-[11px] leading-relaxed">
             {product.ui.frameSelectionHint}
           </p>
 
@@ -164,11 +164,11 @@ export default function PurchasePanel({
                   onClick={() => onSelectFrame(frame)}
                   className={`min-w-0 rounded-xl border p-1.5 text-left transition sm:p-2 ${
                     isSelected
-                      ? "border-[var(--border-brand-pri)] bg-[var(--bg-surface-secondary)]"
-                      : "border-[var(--border-secondary)] bg-[var(--bg-surface-primary)] hover:border-[var(--border-primary)]"
+                      ? "border-border-brand-pri bg-surface-secondary"
+                      : "border-border-secondary bg-surface-primary hover:border-border-primary"
                   }`}
                 >
-                  <div className="relative aspect-[1.45/1] overflow-hidden rounded-md bg-[var(--bg-surface-secondary)]">
+                  <div className="bg-surface-secondary relative aspect-[1.45/1] overflow-hidden rounded-md">
                     <Image
                       src={frame.image}
                       alt={`${frame.name} frame sample`}
@@ -179,17 +179,17 @@ export default function PurchasePanel({
                     />
 
                     {isSelected && (
-                      <span className="absolute top-1 right-1 grid h-5 w-5 place-items-center rounded-full bg-[var(--bg-primary)] text-white">
+                      <span className="bg-primary absolute top-1 right-1 grid h-5 w-5 place-items-center rounded-full text-white">
                         <Check size={12} aria-hidden="true" />
                       </span>
                     )}
                   </div>
 
-                  <span className="mt-2 block truncate text-[10px] font-semibold text-[var(--typo-primary)] sm:text-[11px]">
+                  <span className="text-typo-primary mt-2 block truncate text-[10px] font-semibold sm:text-[11px]">
                     {frame.name}
                   </span>
 
-                  <span className="mt-0.5 block truncate text-[9px] text-[var(--typo-muted)] sm:text-[10px]">
+                  <span className="text-typo-muted mt-0.5 block truncate text-[9px] sm:text-[10px]">
                     {priceCaption}
                   </span>
                 </button>
@@ -197,17 +197,15 @@ export default function PurchasePanel({
             })}
           </div>
 
-          <div className="mt-3 rounded-lg bg-[var(--bg-surface-secondary)]/75 px-3 py-2.5 text-[10px] leading-relaxed text-[var(--typo-secondary)] sm:text-[11px]">
+          <div className="text-typo-secondary mt-3 rounded-lg bg-(--bg-surface-secondary)/75 px-3 py-2.5 text-[10px] leading-relaxed sm:text-[11px]">
             <span className="font-semibold">{product.purchase.selectedFrameLabel}</span>{" "}
             {product.ui.currentSelectionPrefix}{" "}
             <span className="font-semibold">{selectedFrame.name}</span>.
           </div>
         </div>
 
-        <div className="mt-6 border-t border-[var(--border-secondary)] pt-5">
-          <h2 className="font-serif text-xl text-[var(--typo-primary)]">
-            {product.purchase.shippingTitle}
-          </h2>
+        <div className="border-border-secondary mt-6 border-t pt-5">
+          <h2 className="text-typo-primary font-serif text-xl">{product.purchase.shippingTitle}</h2>
 
           <form onSubmit={handlePincodeSubmit} className="mt-3">
             <label htmlFor="product-pincode" className="sr-only">
@@ -228,12 +226,12 @@ export default function PurchasePanel({
                   setPincodeMessage("");
                 }}
                 placeholder={product.shipping.pincodePlaceholder}
-                className="min-w-0 flex-1 rounded-full border border-[var(--border-primary)] bg-[var(--bg-background)] px-3.5 py-3 text-xs text-[var(--typo-primary)] outline-none placeholder:text-[var(--typo-muted)]/70 focus:border-[var(--border-brand-pri)]"
+                className="border-border-primary bg-background text-typo-primary focus:border-border-brand-pri min-w-0 flex-1 rounded-full border px-3.5 py-3 text-xs outline-none placeholder:text-(--typo-muted)/70"
               />
 
               <button
                 type="submit"
-                className="shrink-0 rounded-full bg-[var(--bg-secondary)] px-4 text-xs font-semibold text-white transition hover:bg-[var(--bg-primary)]"
+                className="bg-secondary hover:bg-primary shrink-0 rounded-full px-4 text-xs font-semibold text-white transition"
               >
                 {product.shipping.checkButtonLabel}
               </button>
@@ -246,7 +244,7 @@ export default function PurchasePanel({
               className={`mt-2 rounded-lg px-3 py-2 text-[10px] leading-relaxed ${
                 pincodeResult?.serviceable
                   ? "bg-[#e7eee3] text-[#35563a]"
-                  : "bg-[var(--bg-surface-secondary)] text-[var(--typo-secondary)]"
+                  : "bg-surface-secondary text-typo-secondary"
               }`}
             >
               {pincodeMessage}
@@ -260,44 +258,40 @@ export default function PurchasePanel({
             </div>
           )}
 
-          <p className="mt-4 flex items-start gap-2 text-[11px] leading-relaxed text-[var(--typo-muted)]">
-            <Truck
-              size={15}
-              className="mt-0.5 shrink-0 text-[var(--typo-primary)]"
-              aria-hidden="true"
-            />
+          <p className="text-typo-muted mt-4 flex items-start gap-2 text-[11px] leading-relaxed">
+            <Truck size={15} className="text-typo-primary mt-0.5 shrink-0" aria-hidden="true" />
             {product.shipping.dispatchLabel}
           </p>
 
-          <p className="mt-2 text-[10px] leading-relaxed text-[var(--typo-muted)]">
+          <p className="text-typo-muted mt-2 text-[10px] leading-relaxed">
             {product.shipping.deliveryNote}
           </p>
 
-          <div className="mt-4 flex items-center gap-2 rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-surface-secondary)]/60 px-3 py-2.5 text-[10px] font-medium text-[var(--typo-secondary)]">
+          <div className="border-border-secondary text-typo-secondary mt-4 flex items-center gap-2 rounded-lg border bg-(--bg-surface-secondary)/60 px-3 py-2.5 text-[10px] font-medium">
             <LockKeyhole size={14} aria-hidden="true" />
             {product.shipping.secureLabel}
           </div>
         </div>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-[var(--border-secondary)] bg-[var(--bg-surface-secondary)]/75 p-4 sm:p-5">
+      <div className="border-border-secondary mt-4 rounded-2xl border bg-(--bg-surface-secondary)/75 p-4 sm:p-5">
         <div className="flex items-start gap-3">
-          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--bg-surface-primary)] text-[var(--typo-primary)]">
+          <div className="bg-surface-primary text-typo-primary grid h-9 w-9 shrink-0 place-items-center rounded-full">
             <PackageCheck size={18} aria-hidden="true" />
           </div>
 
           <div className="min-w-0">
-            <h2 className="font-serif text-lg leading-tight text-[var(--typo-primary)]">
+            <h2 className="text-typo-primary font-serif text-lg leading-tight">
               {product.largerVision.title}
             </h2>
 
-            <p className="mt-2 text-[11px] leading-relaxed text-[var(--typo-muted)]">
+            <p className="text-typo-muted mt-2 text-[11px] leading-relaxed">
               {product.largerVision.description}
             </p>
 
             <a
               href={product.largerVision.href}
-              className="mt-3 inline-flex items-center text-[10px] font-semibold tracking-[0.1em] text-[var(--typo-primary)] uppercase underline decoration-[var(--border-brand-pri)] underline-offset-4 transition hover:opacity-65"
+              className="text-typo-primary decoration-border-brand-pri mt-3 inline-flex items-center text-[10px] font-semibold tracking-widest uppercase underline underline-offset-4 transition hover:opacity-65"
             >
               {product.largerVision.linkLabel}
             </a>
